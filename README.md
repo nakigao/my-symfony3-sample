@@ -12,8 +12,8 @@ Github に repository をあらかじめ作成
 作業用のマシンに Github　のアカウントを登録
 
 ```sh
-git config --global user.name "nakigao"
-git config --global user.email "k.zenryokushounen@gmail.com"
+git config --global user.name "xxxxx"
+git config --global user.email "xxxxxxxxxx@xxxxx.xxxxx"
 ```
 
 ※SSHの鍵登録っているんかしら・・・
