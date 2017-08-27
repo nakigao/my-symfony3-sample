@@ -14,6 +14,7 @@ Github に repository をあらかじめ作成
 ```sh
 git config --global user.name "xxxxx"
 git config --global user.email "xxxxxxxxxx@xxxxx.xxxxx"
+git config --global color.ui auto
 ```
 
 ※SSHの鍵登録っているんかしら・・・
