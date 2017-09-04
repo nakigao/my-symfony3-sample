@@ -1,3 +1,7 @@
+nkgo_admin:
+    resource: "@NkgoAdminBundle/Controller/"
+    type:     annotation
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
