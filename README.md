@@ -14,7 +14,6 @@ Github に repository をあらかじめ作成
 ```sh
 git config --global user.name "xxxxx"
 git config --global user.email "xxxxxxxxxx@xxxxx.xxxxx"
-git config --global color.ui auto
 ```
 
 ※SSHの鍵登録っているんかしら・・・
@@ -56,9 +55,10 @@ su -
 cd /var/www/my-symfony3-sample
 curl -sS https://getcomposer.org/installer | php
 php composer.phar install
-chmod 777 /var/www/my-symfony3-sample/var/cache/
-chmod 777 /var/www/my-symfony3-sample/var/logs/
-chmod 777 /var/www/my-symfony3-sample/var/sessions/
+chmod -R 777 /var/www/my-symfony3-sample/var/cache/
+chmod -R 777 /var/www/my-symfony3-sample/var/logs/
+chmod -R 777 /var/www/my-symfony3-sample/var/sessions/
+bower install
 ```
 
 Apacheの設定

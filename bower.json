@@ -1,0 +1,25 @@
+{
+    "name": "my-symfony3-sample",
+    "description": "",
+    "main": [
+    ],
+    "dependencies": {
+        "jquery": "^1",
+        "bootstrap": "^3"
+    },
+    "moduleType": [
+    ],
+    "keywords": [
+    ],
+    "authors": [
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "private": true
+}

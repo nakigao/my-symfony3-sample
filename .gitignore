@@ -3,6 +3,10 @@ composer.lock
 
 .idea/
 
+node_modules/
+bower_components/
+web/assets/vendor/
+
 /.web-server-pid
 /app/config/parameters.yml
 /build/
