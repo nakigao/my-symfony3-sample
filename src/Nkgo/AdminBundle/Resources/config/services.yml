@@ -1,4 +1,0 @@
-services:
-#    nkgo_admin.example:
-#        class: Nkgo\AdminBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
