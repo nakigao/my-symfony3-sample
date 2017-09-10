@@ -30,7 +30,17 @@ base(bundle) > layout(controller) > page(action)
 
 公式ドキュメントにあるので、npm よりも bower がいいかも
 
+## Controllerのひな形作るとき
 
+```
+php bin/console generate:controller --controller=AppBundle:Xxxxxx
+```
+
+## Entityのひな形作るとき
+
+```
+php bin/console generate:doctrine:entity --entity=AppBundle:XxxxXxxx
+```
 
 
 

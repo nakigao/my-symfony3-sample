@@ -1,6 +1,6 @@
 <?php
-namespace AppBundle\Controller;
 
+namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -19,5 +19,4 @@ class AdminController extends Controller
     {
         return $this->render('admin/index.html.twig', []);
     }
-
 }

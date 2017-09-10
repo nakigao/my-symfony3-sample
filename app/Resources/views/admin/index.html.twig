@@ -1,15 +1,53 @@
 {% extends 'admin/layout.html.twig' %}
 {% block content %}
-    <h1 class="page-header">XXXXXXXXXX</h1>
-    <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+    <section>
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="page-header">目的というかなんというか ... </h1>
+            </div>
+        </div>
+    </section>
     <section class="">
         <div class="row">
             <div class="col-sm-12">
-                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
-                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+                <p>美少女ゲームR18のランダムジェネレーターを作りたい</p>
+                <h3>BACKYARD</h3>
+                <ul>
+                    <li>EGSのゲームデータを親データにする(IMPORT)</li>
+                    <li>ゲームごとにキャラクターデータベースを作る</li>
+                </ul>
+                <h3>FRONT-STAGE</h3>
+                <ul>
+                    <li>入力データを元にランダム抽出</li>
+                </ul>
+                <h3>DATABASE</h3>
+                <ul>
+                    <li>
+                        [id]egs_game ... egsから直インポートしてきたデータ(read-only)
+                        <ul>
+                            <li>1[egs_game_id]egs_game_ext ... 独自拡張したデータ</li>
+                            <li>
+                                *[egs_game_id]character_base ... キャラクター
+                                <ul>
+                                    <li>1[character_base_id]name ... 名(ファーストネーム)</li>
+                                    <li>1[character_base_id]middle_name ... 姓(ミドルネーム)</li>
+                                    <li>1[character_base_id]family_name ... 姓(ファミリーネーム)</li>
+                                    <li>*[character_base_id]attribute ... 属性</li>
+                                    <li>1[character_base_id]catch_copy ... キャッチコピー</li>
+                                    <li>*[character_base_id]serif ... セリフ</li>
+                                    <li>1[character_base_id]gender ... 性別</li>
+                                    <li>1[character_base_id]true_gender ... 真の性別</li>
+                                    <li>1[character_base_id]style ... 身長、スリーサイズ</li>
+                                    <li>*[character_base_id]like ... 好きなもの</li>
+                                    <li>*[character_base_id]dislike ... 嫌いなもの</li>
+                                    <li>1[character_base_id]blood_type ... 血液型</li>
+                                    <li>1[character_base_id]birth_day ... 誕生日、星座</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>[id]egs_brand ... egsから直インポートしてきたデータ(read-only)</li>
+                </ul>
             </div>
         </div>
     </section>
