@@ -32,4 +32,3 @@ class CharacterSerif
         return $this->id;
     }
 }
-

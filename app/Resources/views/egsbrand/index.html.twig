@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Egsbrands list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Namekana</th>
+                <th>Url</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for egsBrand in egsBrands %}
+            <tr>
+                <td><a href="{{ path('admin_egsbrand_show', { 'id': egsBrand.id }) }}">{{ egsBrand.id }}</a></td>
+                <td>{{ egsBrand.name }}</td>
+                <td>{{ egsBrand.nameKana }}</td>
+                <td>{{ egsBrand.url }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_egsbrand_show', { 'id': egsBrand.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_egsbrand_edit', { 'id': egsBrand.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_egsbrand_new') }}">Create a new egsBrand</a>
+        </li>
+    </ul>
+{% endblock %}

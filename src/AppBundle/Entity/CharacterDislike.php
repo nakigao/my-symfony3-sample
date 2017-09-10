@@ -32,4 +32,3 @@ class CharacterDislike
         return $this->id;
     }
 }
-

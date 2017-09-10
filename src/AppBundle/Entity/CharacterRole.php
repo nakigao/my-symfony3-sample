@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CharacterLike
+ * CharacterRole
  *
- * @ORM\Table(name="character_like")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CharacterLikeRepository")
+ * @ORM\Table(name="character_role")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CharacterRoleRepository")
  */
-class CharacterLike
+class CharacterRole
 {
     /**
      * @var int

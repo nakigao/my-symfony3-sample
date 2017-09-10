@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Egsgames list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Egsbrandid</th>
+                <th>Name</th>
+                <th>Namekana</th>
+                <th>Releaseymd</th>
+                <th>Url</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for egsGame in egsGames %}
+            <tr>
+                <td><a href="{{ path('admin_egsgame_show', { 'id': egsGame.id }) }}">{{ egsGame.id }}</a></td>
+                <td>{{ egsGame.egsBrandId }}</td>
+                <td>{{ egsGame.name }}</td>
+                <td>{{ egsGame.nameKana }}</td>
+                <td>{% if egsGame.releaseYmd %}{{ egsGame.releaseYmd|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ egsGame.url }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_egsgame_show', { 'id': egsGame.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_egsgame_edit', { 'id': egsGame.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_egsgame_new') }}">Create a new egsGame</a>
+        </li>
+    </ul>
+{% endblock %}

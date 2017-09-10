@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Egsgame</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ egsGame.id }}</td>
+            </tr>
+            <tr>
+                <th>Egsbrandid</th>
+                <td>{{ egsGame.egsBrandId }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ egsGame.name }}</td>
+            </tr>
+            <tr>
+                <th>Namekana</th>
+                <td>{{ egsGame.nameKana }}</td>
+            </tr>
+            <tr>
+                <th>Releaseymd</th>
+                <td>{% if egsGame.releaseYmd %}{{ egsGame.releaseYmd|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ egsGame.url }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_egsgame_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_egsgame_edit', { 'id': egsGame.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

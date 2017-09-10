@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * EgsGameExt
+ * EgsBrandExt
  *
- * @ORM\Table(name="egs_game_ext")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\EgsGameExtRepository")
+ * @ORM\Table(name="egs_brand_ext")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EgsBrandExtRepository")
  */
-class EgsGameExt
+class EgsBrandExt
 {
     /**
      * @var int
@@ -26,7 +26,7 @@ class EgsGameExt
      *
      * @ORM\Column(type="bigint")
      */
-    private $egsGameId;
+    private $egsBrandId;
 
     /**
      * Get id
@@ -39,26 +39,26 @@ class EgsGameExt
     }
 
     /**
-     * Set egsGameId
+     * Set egsBrandId
      *
-     * @param integer $egsGameId
+     * @param integer $egsBrandId
      *
-     * @return EgsGameExt
+     * @return EgsBrandExt
      */
-    public function setEgsGameId($egsGameId)
+    public function setEgsBrandId($egsBrandId)
     {
-        $this->egs_game_id = $egsGameId;
+        $this->egsBrandId = $egsBrandId;
 
         return $this;
     }
 
     /**
-     * Get egsGameId
+     * Get egsBrandId
      *
      * @return integer
      */
-    public function getEgsGameId()
+    public function getEgsBrandId()
     {
-        return $this->egs_game_id;
+        return $this->egsBrandId;
     }
 }

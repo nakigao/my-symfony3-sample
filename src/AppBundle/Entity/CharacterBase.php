@@ -32,4 +32,3 @@ class CharacterBase
         return $this->id;
     }
 }
-

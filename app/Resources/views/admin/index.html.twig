@@ -32,21 +32,27 @@
                                     <li>1[character_base_id]name ... 名(ファーストネーム)</li>
                                     <li>1[character_base_id]middle_name ... 姓(ミドルネーム)</li>
                                     <li>1[character_base_id]family_name ... 姓(ファミリーネーム)</li>
-                                    <li>*[character_base_id]attribute ... 属性</li>
-                                    <li>1[character_base_id]catch_copy ... キャッチコピー</li>
-                                    <li>*[character_base_id]serif ... セリフ</li>
                                     <li>1[character_base_id]gender ... 性別</li>
                                     <li>1[character_base_id]true_gender ... 真の性別</li>
                                     <li>1[character_base_id]style ... 身長、スリーサイズ</li>
-                                    <li>*[character_base_id]like ... 好きなもの</li>
-                                    <li>*[character_base_id]dislike ... 嫌いなもの</li>
                                     <li>1[character_base_id]blood_type ... 血液型</li>
                                     <li>1[character_base_id]birth_day ... 誕生日、星座</li>
                                 </ul>
                             </li>
+                            <li>1[character_base_id]character_role ... 役割(主人公、ヒロイン、サブキャラ)</li>
+                            <li>1[character_base_id]character_catch_Phrase ... キャッチコピー</li>
+                            <li>*[character_base_id]character_attribute ... 属性</li>
+                            <li>*[character_base_id]character_serif ... セリフ</li>
+                            <li>*[character_base_id]character_like ... 好きなもの</li>
+                            <li>*[character_base_id]character_dislike ... 嫌いなもの</li>
                         </ul>
                     </li>
-                    <li>[id]egs_brand ... egsから直インポートしてきたデータ(read-only)</li>
+                    <li>
+                        [id]egs_brand ... egsから直インポートしてきたデータ(read-only)
+                        <ul>
+                            <li>1[egs_brand_id]egs_brand_ext ... 独自拡張したデータ</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

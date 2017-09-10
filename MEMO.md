@@ -40,8 +40,21 @@ php bin/console generate:controller --controller=AppBundle:Xxxxxx
 
 ```
 php bin/console generate:doctrine:entity --entity=AppBundle:XxxxXxxx
+
+*出来上がったEntityClassにプロパティを定義する
+
+php bin/console generate:doctrine:entities AppBundle/Entity/XxxxXxxx
 ```
 
+必要であれば、DBの更新
 
+```
+php bin/console doctrine:schema:update --force
+```
 
+CRUDがほしかったら
+
+```
+php bin/console generate:doctrine:crud AppBundle/XxxxXxxx
+```
 

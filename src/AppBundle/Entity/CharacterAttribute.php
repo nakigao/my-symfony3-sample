@@ -32,4 +32,3 @@ class CharacterAttribute
         return $this->id;
     }
 }
-
