@@ -8,16 +8,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class IndexController extends Controller
+class AdminController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/admin/")
      *
      * @return Response
      */
     public function indexAction()
     {
-        return $this->render('index/index.html.twig', []);
+        return $this->render('admin/index.html.twig', []);
     }
 
 }

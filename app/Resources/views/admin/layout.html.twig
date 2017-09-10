@@ -1,0 +1,20 @@
+{# 2 column layout - fix top and left sidebar #}
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% include 'admin/_top-navigation-menu.html.twig' %}
+    <div class="container-fluid" style="margin-top:6px;">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                {% include 'admin/_left-side-menu.html.twig' %}
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                {% block content %}{% endblock %}
+                <div class="row" style="margin-top: 1.5em;">
+                    <div class="col-sm-12">
+                        <p>Copyright (C) 2017 - {{ "now"|date("Y") }} {{ site_author }}. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

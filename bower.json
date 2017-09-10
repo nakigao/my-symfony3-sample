@@ -5,7 +5,8 @@
     ],
     "dependencies": {
         "jquery": "^1",
-        "bootstrap": "^3"
+        "bootstrap": "^3",
+        "components-font-awesome": "^4"
     },
     "moduleType": [
     ],
