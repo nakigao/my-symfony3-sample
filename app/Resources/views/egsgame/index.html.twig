@@ -1,44 +1,44 @@
-{% extends 'base.html.twig' %}
+{% extends 'egsgame/layout.html.twig' %}
 
-{% block body %}
+{% block content %}
     <h1>Egsgames list</h1>
-
-    <table>
+    <p>Filter: 年別</p>
+    <p>Filter: 削除フラグ</p>
+    <table class="table table-hover table-condensed table-responsive">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Egsbrandid</th>
-                <th>Name</th>
-                <th>Namekana</th>
-                <th>Releaseymd</th>
-                <th>Url</th>
-                <th>Actions</th>
+                <th class="col-sm-1">Id</th>
+                {#<th>Egsbrandid</th>#}
+                <th class="col-sm-4">Name</th>
+                {#<th>Namekana</th>#}
+                <th class="col-sm-1">Releaseymd</th>
+                <th class="col-sm-1">Url</th>
+                <th class="col-sm-1">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for egsGame in egsGames %}
             <tr>
                 <td><a href="{{ path('admin_egsgame_show', { 'id': egsGame.id }) }}">{{ egsGame.id }}</a></td>
-                <td>{{ egsGame.egsBrandId }}</td>
-                <td>{{ egsGame.name }}</td>
-                <td>{{ egsGame.nameKana }}</td>
-                <td>{% if egsGame.releaseYmd %}{{ egsGame.releaseYmd|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ egsGame.url }}</td>
+                {#<td>{{ egsGame.egsBrandId }}</td>#}
+                <td><a href="https://www.google.co.jp/search?q=エロゲ {{ egsGame.name }}" target="_blank">{{ egsGame.name }}</a></td>
+                {#<td>{{ egsGame.nameKana }}</td>#}
+                <td>{% if egsGame.releaseYmd %}{{ egsGame.releaseYmd|date('Y-m') }}{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_egsgame_show', { 'id': egsGame.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_egsgame_edit', { 'id': egsGame.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {% if egsGame.url is empty %}
+                        {# nothing to show #}
+                    {% else %}
+                        <a href="{{ egsGame.url }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('admin_egsgame_show', { 'id': egsGame.id }) }}" class="btn btn-default" role="button"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('admin_egsgame_edit', { 'id': egsGame.id }) }}" class="btn btn-default" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
     <ul>
         <li>
             <a href="{{ path('admin_egsgame_new') }}">Create a new egsGame</a>

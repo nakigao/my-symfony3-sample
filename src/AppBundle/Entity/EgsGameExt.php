@@ -47,7 +47,7 @@ class EgsGameExt
      */
     public function setEgsGameId($egsGameId)
     {
-        $this->egs_game_id = $egsGameId;
+        $this->egsGameId = $egsGameId;
 
         return $this;
     }
@@ -59,6 +59,6 @@ class EgsGameExt
      */
     public function getEgsGameId()
     {
-        return $this->egs_game_id;
+        return $this->egsGameId;
     }
 }

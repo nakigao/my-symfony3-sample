@@ -55,9 +55,6 @@ class EgsGame
      */
     private $url;
 
-//id, egs_brand_id, name, name_kana, release_ymd, url
-
-
     /**
      * Get id
      *

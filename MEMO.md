@@ -58,3 +58,9 @@ CRUDがほしかったら
 php bin/console generate:doctrine:crud AppBundle/XxxxXxxx
 ```
 
+## 自動生成されたコードから感じたこと
+
+`@ParamConverter`が秀逸・・・
+
+Actionにタイプヒントで渡すだけで勝手にIDパラム取得してくれるって便利ぃ～
+
