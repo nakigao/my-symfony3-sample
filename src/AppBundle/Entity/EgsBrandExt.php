@@ -13,30 +13,22 @@ use Doctrine\ORM\Mapping as ORM;
 class EgsBrandExt
 {
     /**
-     * @var int
+     * @var integer
      *
-     * @ORM\Column(name="id", type="bigint")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="bigint")
+     * @ORM\Column(name="egs_brand_id", type="bigint", nullable=false)
      */
     private $egsBrandId;
 
     /**
-     * Get id
+     * @var integer
      *
-     * @return int
+     * @ORM\Column(name="id", type="bigint")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $id;
+
+
 
     /**
      * Set egsBrandId
@@ -60,5 +52,15 @@ class EgsBrandExt
     public function getEgsBrandId()
     {
         return $this->egsBrandId;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

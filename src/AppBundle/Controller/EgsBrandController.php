@@ -31,31 +31,31 @@ class EgsBrandController extends Controller
         ));
     }
 
-    /**
-     * Creates a new egsBrand entity.
-     *
-     * @Route("/new", name="admin_egsbrand_new")
-     * @Method({"GET", "POST"})
-     */
-    public function newAction(Request $request)
-    {
-        $egsBrand = new Egsbrand();
-        $form = $this->createForm('AppBundle\Form\EgsBrandType', $egsBrand);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($egsBrand);
-            $em->flush();
-
-            return $this->redirectToRoute('admin_egsbrand_show', array('id' => $egsBrand->getId()));
-        }
-
-        return $this->render('egsbrand/new.html.twig', array(
-            'egsBrand' => $egsBrand,
-            'form' => $form->createView(),
-        ));
-    }
+//    /**
+//     * Creates a new egsBrand entity.
+//     *
+//     * @Route("/new", name="admin_egsbrand_new")
+//     * @Method({"GET", "POST"})
+//     */
+//    public function newAction(Request $request)
+//    {
+//        $egsBrand = new Egsbrand();
+//        $form = $this->createForm('AppBundle\Form\EgsBrandType', $egsBrand);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($egsBrand);
+//            $em->flush();
+//
+//            return $this->redirectToRoute('admin_egsbrand_show', array('id' => $egsBrand->getId()));
+//        }
+//
+//        return $this->render('egsbrand/new.html.twig', array(
+//            'egsBrand' => $egsBrand,
+//            'form' => $form->createView(),
+//        ));
+//    }
 
     /**
      * Finds and displays a egsBrand entity.
@@ -73,47 +73,46 @@ class EgsBrandController extends Controller
         ));
     }
 
-    /**
-     * Displays a form to edit an existing egsBrand entity.
-     *
-     * @Route("/{id}/edit", name="admin_egsbrand_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, EgsBrand $egsBrand)
-    {
-        $deleteForm = $this->createDeleteForm($egsBrand);
-        $editForm = $this->createForm('AppBundle\Form\EgsBrandType', $egsBrand);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_egsbrand_edit', array('id' => $egsBrand->getId()));
-        }
-
-        return $this->render('egsbrand/edit.html.twig', array(
-            'egsBrand' => $egsBrand,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
+//    /**
+// * Displays a form to edit an existing egsBrand entity.
+// *
+// * @Route("/{id}/edit", name="admin_egsbrand_edit")
+// * @Method({"GET", "POST"})
+// */
+//    public function editAction(Request $request, EgsBrand $egsBrand)
+//    {
+//        $deleteForm = $this->createDeleteForm($egsBrand);
+//        $editForm = $this->createForm('AppBundle\Form\EgsBrandType', $egsBrand);
+//        $editForm->handleRequest($request);
+//
+//        if ($editForm->isSubmitted() && $editForm->isValid()) {
+//            $this->getDoctrine()->getManager()->flush();
+//
+//            return $this->redirectToRoute('admin_egsbrand_edit', array('id' => $egsBrand->getId()));
+//        }
+//
+//        return $this->render('egsbrand/edit.html.twig', array(
+//            'egsBrand' => $egsBrand,
+//            'edit_form' => $editForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
+//        ));
+//    }
+//
     /**
      * Deletes a egsBrand entity.
-     *
      * @Route("/{id}", name="admin_egsbrand_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, EgsBrand $egsBrand)
     {
-        $form = $this->createDeleteForm($egsBrand);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($egsBrand);
-            $em->flush();
-        }
+//        $form = $this->createDeleteForm($egsBrand);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->remove($egsBrand);
+//            $em->flush();
+//        }
 
         return $this->redirectToRoute('admin_egsbrand_index');
     }
@@ -130,7 +129,6 @@ class EgsBrandController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_egsbrand_delete', array('id' => $egsBrand->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

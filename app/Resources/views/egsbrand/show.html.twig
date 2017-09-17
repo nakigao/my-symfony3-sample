@@ -1,4 +1,4 @@
-{% extends 'egsbrand/layout.html.twig' %}
+{% extends 'admin/layout.html.twig' %}
 
 {% block content %}
     <div class="row">
@@ -28,14 +28,14 @@
                 <li>
                     <a href="{{ path('admin_egsbrand_index') }}">Back to the list</a>
                 </li>
-                <li>
-                    <a href="{{ path('admin_egsbrand_edit', { 'id': egsBrand.id }) }}">Edit</a>
-                </li>
-                <li>
-                    {{ form_start(delete_form) }}
-                    <input type="submit" value="Delete">
-                    {{ form_end(delete_form) }}
-                </li>
+                {#<li>#}
+                {#<a href="{{ path('admin_egsbrand_edit', { 'id': egsBrand.id }) }}">Edit</a>#}
+                {#</li>#}
+                {#<li>#}
+                {#{{ form_start(delete_form) }}#}
+                {#<input type="submit" value="Delete">#}
+                {#{{ form_end(delete_form) }}#}
+                {#</li>#}
             </ul>
         </div>
     </div>

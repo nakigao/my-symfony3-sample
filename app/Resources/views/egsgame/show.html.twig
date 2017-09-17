@@ -1,4 +1,4 @@
-{% extends 'egsgame/layout.html.twig' %}
+{% extends 'admin/layout.html.twig' %}
 
 {% block content %}
     <h1>Egsgame</h1>
@@ -36,13 +36,13 @@
         <li>
             <a href="{{ path('admin_egsgame_index') }}">Back to the list</a>
         </li>
-        <li>
-            <a href="{{ path('admin_egsgame_edit', { 'id': egsGame.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
+        {#<li>#}
+        {#<a href="{{ path('admin_egsgame_edit', { 'id': egsGame.id }) }}">Edit</a>#}
+        {#</li>#}
+        {#<li>#}
+        {#{{ form_start(delete_form) }}#}
+        {#<input type="submit" value="Delete">#}
+        {#{{ form_end(delete_form) }}#}
+        {#</li>#}
     </ul>
 {% endblock %}

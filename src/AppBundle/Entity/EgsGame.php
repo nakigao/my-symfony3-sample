@@ -13,71 +13,50 @@ use Doctrine\ORM\Mapping as ORM;
 class EgsGame
 {
     /**
-     * @var int
+     * @var integer
      *
-     * @ORM\Column(type="bigint")
-     * @ORM\Id
-     */
-    private $id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="bigint")
+     * @ORM\Column(name="egs_brand_id", type="bigint", nullable=false)
      */
     private $egsBrandId;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(name="name", type="text", nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=TRUE)
+     * @ORM\Column(name="name_kana", type="text", nullable=true)
      */
     private $nameKana;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(name="release_ymd", type="date", nullable=false)
      */
     private $releaseYmd;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=TRUE)
+     * @ORM\Column(name="url", type="text", nullable=true)
      */
     private $url;
 
     /**
-     * Get id
+     * @var integer
      *
-     * @return int
+     * @ORM\Column(name="id", type="bigint")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $id;
 
-    /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return EgsGame
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
 
-        return $this;
-    }
 
     /**
      * Set egsBrandId
@@ -197,5 +176,15 @@ class EgsGame
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

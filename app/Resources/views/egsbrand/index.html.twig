@@ -1,4 +1,4 @@
-{% extends 'egsbrand/layout.html.twig' %}
+{% extends 'admin/layout.html.twig' %}
 
 {% block content %}
     <h1>Egsbrands list</h1>
@@ -14,29 +14,29 @@
         </tr>
         </thead>
         <tbody>
-        {% for egsBrand in egsBrands %}
+        {% for entry in egsBrands %}
             <tr>
-                <td><a href="{{ path('admin_egsbrand_show', { 'id': egsBrand.id }) }}">{{ egsBrand.id }}</a></td>
-                <td><a href="https://www.google.co.jp/search?q=エロゲ {{ egsBrand.name }}" target="_blank">{{ egsBrand.name }}</a></td>
-                {#<td class="col-sm-4">{{ egsBrand.nameKana }}</td>#}
+                <td>{{ entry.id }}</td>
+                <td><a href="https://www.google.co.jp/search?q=エロゲ {{ entry.name }}" target="_blank">{{ entry.name }}</a></td>
+                {#<td class="col-sm-4">{{ entry.nameKana }}</td>#}
                 <td>
-                    {% if egsBrand.url is empty %}
+                    {% if entry.url is empty %}
                         {# nothing to show #}
                     {% else %}
-                        <a href="{{ egsBrand.url }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+                        <a href="{{ entry.url }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
                     {% endif %}
                 </td>
                 <td>
-                    <a href="{{ path('admin_egsbrand_show', { 'id': egsBrand.id }) }}" class="btn btn-default" role="button"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="{{ path('admin_egsbrand_edit', { 'id': egsBrand.id }) }}" class="btn btn-default" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a href="{{ path('admin_egsbrand_show', { 'id': entry.id }) }}" class="btn btn-default" role="button"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    {#<a href="{{ path('admin_egsbrand_edit', { 'id': entry.id }) }}" class="btn btn-default" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>#}
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <ul>
-        <li>
-            <a href="{{ path('admin_egsbrand_new') }}">Create a new egsBrand</a>
-        </li>
-    </ul>
+    {#<ul>#}
+    {#<li>#}
+    {#<a href="{{ path('admin_egsbrand_new') }}">Create a new egsBrand</a>#}
+    {#</li>#}
+    {#</ul>#}
 {% endblock %}

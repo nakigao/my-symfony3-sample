@@ -13,30 +13,22 @@ use Doctrine\ORM\Mapping as ORM;
 class EgsGameExt
 {
     /**
-     * @var int
+     * @var integer
      *
-     * @ORM\Column(name="id", type="bigint")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="bigint")
+     * @ORM\Column(name="egs_game_id", type="bigint", nullable=false)
      */
     private $egsGameId;
 
     /**
-     * Get id
+     * @var integer
      *
-     * @return int
+     * @ORM\Column(name="id", type="bigint")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $id;
+
+
 
     /**
      * Set egsGameId
@@ -60,5 +52,15 @@ class EgsGameExt
     public function getEgsGameId()
     {
         return $this->egsGameId;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

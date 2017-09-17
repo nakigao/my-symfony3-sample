@@ -64,3 +64,21 @@ php bin/console generate:doctrine:crud AppBundle/XxxxXxxx
 
 Actionにタイプヒントで渡すだけで勝手にIDパラム取得してくれるって便利ぃ～
 
+## 既存DBからEntity生成した場合
+
+これが意外と融通が利いてない
+
+```
+php bin/console doctrine:mapping:import --force AppBundle xml
+php bin/console doctrine:mapping:convert annotation ./src
+```
+
+DBから引っこ抜いてきたデータでXMLがキレイにできるんだけど・・・
+
+1. 生成されたファイルの@Entityアノテーションがカスタム用になってないので、`@ORM\Entity(repositoryClass="AppBundle\Repository\XxxxxxRepository")`みたいに全部書き直す
+2. 更にAnnotationを使う場合は、(XMLが優先されるらしいので)生成されたXMLを削除しないといけない。`rm -rf src/AppBundle/Resources`
+
+```
+php bin/console doctrine:generate:entities AppBundle/Entity/XxxxxXxxxxx
+php bin/console doctrine:schema:update --force
+```

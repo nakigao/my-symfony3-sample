@@ -13,57 +13,36 @@ use Doctrine\ORM\Mapping as ORM;
 class EgsBrand
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(type="bigint")
-     * @ORM\Id
-     */
-    private $id;
-
-    /**
      * @var string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(name="name", type="text", nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=TRUE)
+     * @ORM\Column(name="name_kana", type="text", nullable=true)
      */
     private $nameKana;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=TRUE)
+     * @ORM\Column(name="url", type="text", nullable=true)
      */
     private $url;
 
     /**
-     * Get id
+     * @var integer
      *
-     * @return int
+     * @ORM\Column(name="id", type="bigint")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $id;
 
-    /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return EgsBrand
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
 
-        return $this;
-    }
 
     /**
      * Set name
@@ -135,5 +114,15 @@ class EgsBrand
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }
