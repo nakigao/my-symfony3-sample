@@ -22,7 +22,7 @@ INSERT INTO egs_game_month (year, month, total, value, html_text)
         DATE_FORMAT(release_ymd, '%Y') AS year,
         DATE_FORMAT(release_ymd, '%m') AS month,
         COUNT(*)                       AS total,
-        DATE_FORMAT(release_ymd, '%Y-%m') AS value,
+        DATE_FORMAT(release_ymd, '%c') AS value,
         CONCAT(DATE_FORMAT(release_ymd, '%m'), '(', COUNT(*), ')') AS html_text
     FROM
         egs_game

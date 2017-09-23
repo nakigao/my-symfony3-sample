@@ -27,7 +27,7 @@ class EgsGameMonthRepository extends BaseRepository
             // 全件取得してる場合
             return $this->mergeWhichSelected(array(), null);
         }
-        $needle = $year . '-' . $month;
+        $needle = $month;
         if (empty($month)) {
             // 月が指定されていない場合は、年で取得してるということなので、needleはnullでOK
             $needle = null;
