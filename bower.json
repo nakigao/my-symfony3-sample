@@ -6,7 +6,9 @@
     "dependencies": {
         "jquery": "^1",
         "bootstrap": "^3",
-        "components-font-awesome": "^4"
+        "components-font-awesome": "^4",
+        "bootbox": "^4",
+        "handlebars": "^4"
     },
     "moduleType": [
     ],

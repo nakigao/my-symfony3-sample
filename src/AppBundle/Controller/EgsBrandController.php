@@ -3,20 +3,22 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\EgsBrand;
+use AppBundle\Utils\ErrorCode;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Egsbrand controller.
- *
  * @Route("admin/egsbrand")
  */
 class EgsBrandController extends Controller
 {
     /**
      * Lists all egsBrand entities.
-     *
      * @Route("/", name="admin_egsbrand_index")
      * @Method("GET")
      */
@@ -59,18 +61,23 @@ class EgsBrandController extends Controller
 
     /**
      * Finds and displays a egsBrand entity.
-     *
      * @Route("/{id}", name="admin_egsbrand_show")
      * @Method("GET")
+     *
+     * @param EgsBrand $egsBrand
+     *
+     * @return Response
      */
     public function showAction(EgsBrand $egsBrand)
     {
-        $deleteForm = $this->createDeleteForm($egsBrand);
-
-        return $this->render('egsbrand/show.html.twig', array(
-            'egsBrand' => $egsBrand,
-            'delete_form' => $deleteForm->createView(),
+        $egsBrand = json_decode($this->container->get('serializer')->serialize($egsBrand, 'json'));
+        if (empty($egsBrand)) {
+            return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::NO_ENTRY)), 500);
+        }
+        $renderView = $this->renderView('egsbrand/show.html.twig', array(
+            'egsBrand' => $egsBrand
         ));
+        return new Response($renderView, 200);
     }
 
 //    /**

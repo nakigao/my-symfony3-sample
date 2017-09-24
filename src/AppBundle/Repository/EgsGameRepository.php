@@ -24,20 +24,25 @@ class EgsGameRepository extends BaseRepository
     public function getList($year = '', $month = '', $page = 0, $sort = '', $order = 'asc', $includeDeleted = 0, $keyword = '')
     {
         $em = $this->getEntityManager();
-        if (empty($year)) {
+        if (empty($year) && empty($month)) {
             // 全件
             $dql = "SELECT o FROM AppBundle:EgsGame o ORDER BY o.releaseYmd {$order}";
             $query = $em->createQuery($dql);
-        } elseif (empty($month)) {
-            // 年別
-            $needle = date('Y', strtotime($year)) . '-%';
-            $dql = "SELECT o FROM AppBundle:EgsGame o WHERE o.releaseYmd LIKE :releaseYmd ORDER BY o.releaseYmd {$order}";
-            $query = $em->createQuery($dql)->setParameter('releaseYmd', $needle);
         } else {
-            // 年月別
-            $needle = date('Y', strtotime($year)) . '-' . date('m', strtotime($year . '-' . $month)) . '-%';
-            $dql = "SELECT o FROM AppBundle:EgsGame o WHERE o.releaseYmd LIKE :releaseYmd ORDER BY o.releaseYmd {$order}";
-            $query = $em->createQuery($dql)->setParameter('releaseYmd', $needle);
+            if (empty($month)) {
+                $year = date('Y', strtotime($year . '-01-01'));
+                // 年別
+                $needle = $year . '-%';
+                $dql = "SELECT o FROM AppBundle:EgsGame o WHERE o.releaseYmd LIKE :releaseYmd ORDER BY o.releaseYmd {$order}";
+                $query = $em->createQuery($dql)->setParameter('releaseYmd', $needle);
+            } else {
+                $year = date('Y', strtotime($year . '-01-01'));
+                $month = date('m', strtotime($year . '-' . $month . '-01'));
+                // 年月別
+                $needle = $year . '-' . $month . '-%';
+                $dql = "SELECT o FROM AppBundle:EgsGame o WHERE o.releaseYmd LIKE :releaseYmd ORDER BY o.releaseYmd {$order}";
+                $query = $em->createQuery($dql)->setParameter('releaseYmd', $needle);
+            }
         }
         return $query->getArrayResult();
     }

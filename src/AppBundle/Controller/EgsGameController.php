@@ -3,12 +3,14 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\EgsGame;
+use AppBundle\Utils\ErrorCode;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Twig\Error\Error;
 
 /**
  * Egsgame controller.
@@ -74,15 +76,21 @@ class EgsGameController extends Controller
      * Finds and displays a egsGame entity.
      * @Route("/{id}", name="admin_egsgame_show")
      * @Method("GET")
+     *
+     * @param EgsGame $egsGame
+     *
+     * @return Response
      */
     public function showAction(EgsGame $egsGame)
     {
-        $deleteForm = $this->createDeleteForm($egsGame);
-
-        return $this->render('egsgame/show.html.twig', array(
-            'egsGame' => $egsGame,
-            'delete_form' => $deleteForm->createView(),
+        $egsGame = json_decode($this->container->get('serializer')->serialize($egsGame, 'json'));
+        if (empty($egsGame)) {
+            return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::NO_ENTRY)), 500);
+        }
+        $renderView = $this->renderView('egsgame/show.html.twig', array(
+            'egsGame' => $egsGame
         ));
+        return new Response($renderView, 200);
     }
 
 //    /**

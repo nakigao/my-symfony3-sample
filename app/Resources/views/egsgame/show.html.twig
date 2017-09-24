@@ -1,48 +1,29 @@
-{% extends 'admin/layout.html.twig' %}
-
-{% block content %}
-    <h1>Egsgame</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ egsGame.id }}</td>
-            </tr>
-            <tr>
-                <th>Egsbrandid</th>
-                <td>{{ egsGame.egsBrandId }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ egsGame.name }}</td>
-            </tr>
-            <tr>
-                <th>Namekana</th>
-                <td>{{ egsGame.nameKana }}</td>
-            </tr>
-            <tr>
-                <th>Releaseymd</th>
-                <td>{% if egsGame.releaseYmd %}{{ egsGame.releaseYmd|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ egsGame.url }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_egsgame_index') }}">Back to the list</a>
-        </li>
-        {#<li>#}
-        {#<a href="{{ path('admin_egsgame_edit', { 'id': egsGame.id }) }}">Edit</a>#}
-        {#</li>#}
-        {#<li>#}
-        {#{{ form_start(delete_form) }}#}
-        {#<input type="submit" value="Delete">#}
-        {#{{ form_end(delete_form) }}#}
-        {#</li>#}
-    </ul>
-{% endblock %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <p>{{ egsGame.id }}</p>
+            <p class="" style="font-size: large; font-weight: bold">{{ egsGame.name }}</p>
+            <p>({{ egsGame.nameKana }})</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Egsbrandid</th>
+                    <td>{{ egsGame.egsBrandId }}</td>
+                </tr>
+                <tr>
+                    <th>Releaseymd</th>
+                    <td>{% if egsGame.releaseYmd %}{{ egsGame.releaseYmd|date('Y-m-d') }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Url</th>
+                    <td><a href="{{ egsGame.url }}" target="_blank">{{ egsGame.url }}</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

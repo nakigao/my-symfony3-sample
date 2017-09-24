@@ -6,30 +6,25 @@
     <table class="table table-hover table-condensed table-responsive">
         <thead>
         <tr>
+            <th class="col-sm-2">Url</th>
+            <th class="">Name</th>
             <th class="col-sm-1">Id</th>
-            <th class="col-sm-6">Name</th>
-            {#<th>Namekana</th>#}
-            <th class="col-sm-1">Url</th>
-            <th class="col-sm-1">Actions</th>
         </tr>
         </thead>
         <tbody>
         {% for entry in egsBrands %}
             <tr>
-                <td>{{ entry.id }}</td>
-                <td><a href="https://www.google.co.jp/search?q=エロゲ {{ entry.name }}" target="_blank">{{ entry.name }}</a></td>
-                {#<td class="col-sm-4">{{ entry.nameKana }}</td>#}
                 <td>
-                    {% if entry.url is empty %}
-                        {# nothing to show #}
+                    <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="open-infomation-modal" data-action-url="{{ path('admin_egsbrand_show', { 'id': entry.id }) }}"><i class="fa fa-info-circle" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                    {% if entry.url is defined and entry.url is not empty %}
+                        <a href="{{ entry.url }}" target="_blank" class="btn btn-default" role="button"><i class="fa fa-external-link" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                     {% else %}
-                        <a href="{{ entry.url }}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+                        <div class="btn btn-default disabled"><i class="fa" aria-hidden="true" style="width: 12px; height: 12px;"></i></div>
                     {% endif %}
+                    {#<a href="https://www.google.co.jp/search?q=エロゲ ブランド {{ entry.name }}" target="_blank" class="btn btn-default" role="button"><i class="fa fa-search" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>#}
                 </td>
-                <td>
-                    <a href="{{ path('admin_egsbrand_show', { 'id': entry.id }) }}" class="btn btn-default" role="button"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    {#<a href="{{ path('admin_egsbrand_edit', { 'id': entry.id }) }}" class="btn btn-default" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>#}
-                </td>
+                <td>{{ entry.name }}</td>
+                <td>{{ entry.id }}</td>
             </tr>
         {% endfor %}
         </tbody>
