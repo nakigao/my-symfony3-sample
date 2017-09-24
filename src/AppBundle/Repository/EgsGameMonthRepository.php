@@ -33,7 +33,7 @@ class EgsGameMonthRepository extends BaseRepository
             $needle = null;
         }
         $em = $this->getEntityManager();
-        $dql = "SELECT o FROM AppBundle:EgsGameMonth o WHERE o.year = :year ORDER BY o.month {$order}";
+        $dql = "SELECT o FROM {$this->_entityName} o WHERE o.year = :year ORDER BY o.month {$order}";
         $query = $em->createQuery($dql)->setParameter('year', $year);
         $records = $query->getArrayResult();
         if (empty($records)) {

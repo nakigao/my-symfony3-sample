@@ -18,7 +18,7 @@ class LogicalTypeRepository extends BaseRepository
     public function getList($needle = null)
     {
         $em = $this->getEntityManager();
-        $dql = "SELECT o FROM AppBundle:LogicalType o";
+        $dql = "SELECT o FROM {$this->_entityName} o";
         $query = $em->createQuery($dql);
         $records = $query->getArrayResult();
         // 選択情報を付与

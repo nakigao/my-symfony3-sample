@@ -24,7 +24,7 @@ class EgsGameYearRepository extends BaseRepository
     public function getList($year = '', $month = '', $page = 0, $sort = '', $order = 'asc', $includeDeleted = 0, $keyword = '')
     {
         $em = $this->getEntityManager();
-        $dql = "SELECT o FROM AppBundle:EgsGameYear o ORDER BY o.year {$order}";
+        $dql = "SELECT o FROM {$this->_entityName} o ORDER BY o.year {$order}";
         $query = $em->createQuery($dql);
         $records = $query->getArrayResult();
         if (empty($records)) {

@@ -3,7 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\EgsGame;
+use AppBundle\Entity\Game;
 use AppBundle\Utils\ErrorCode;
+use AppBundle\Utils\SuccessCode;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -35,63 +37,86 @@ class GameController extends Controller
         $order = $request->get('order', 'asc');
         $keyword = $request->get('keyword', null);
         $em = $this->getDoctrine()->getManager();
-        $egsGames = $em->getRepository('AppBundle:EgsGame')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
+        $games = $em->getRepository('AppBundle:Game')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
         $egsGameYears = $em->getRepository('AppBundle:EgsGameYear')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
         $egsGameMonths = $em->getRepository('AppBundle:EgsGameMonth')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
         $logicalTypes = $em->getRepository('AppBundle:LogicalType')->getList($includeDeleted);
         return $this->render('game/index.html.twig', array(
-            'egsGames' => $egsGames,
+            'games' => $games,
             'egsGameYears' => $egsGameYears,
             'egsGameMonths' => $egsGameMonths,
             'logicalTypes' => $logicalTypes,
         ));
     }
 
-//    /**
-//     * Creates a new egsGame entity.
-//     * @Route("/new", name="admin_egsgame_new")
-//     * @Method({"GET", "POST"})
-//     */
-//    public function newAction(Request $request)
-//    {
-//        $egsGame = new Egsgame();
-//        $form = $this->createForm('AppBundle\Form\EgsGameType', $egsGame);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($egsGame);
-//            $em->flush();
-//
-//            return $this->redirectToRoute('admin_egsgame_show', array('id' => $egsGame->getId()));
-//        }
-//
-//        return $this->render('egsgame/new.html.twig', array(
-//            'egsGame' => $egsGame,
-//            'form' => $form->createView(),
-//        ));
-//    }
+    /**
+     * Finds and displays a Game entity.
+     * @Route("/{id}", name="admin_game_show")
+     * @Method("GET")
+     * @return Response
+     */
+    public function showAction()
+    {
+        $egsGame = json_decode($this->container->get('serializer')->serialize(array(), 'json'), true);
+        if (empty($egsGame)) {
+            return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::NO_ENTRY)), 500);
+        }
+        $renderView = $this->renderView('game/show.html.twig', array(
+            'egsGame' => $egsGame
+        ));
+        return new Response($renderView, 200);
+    }
 
-//    /**
-//     * Finds and displays a egsGame entity.
-//     * @Route("/{id}", name="admin_egsgame_show")
-//     * @Method("GET")
-//     *
-//     * @param EgsGame $egsGame
-//     *
-//     * @return Response
-//     */
-//    public function showAction(EgsGame $egsGame)
-//    {
-//        $egsGame = json_decode($this->container->get('serializer')->serialize($egsGame, 'json'));
-//        if (empty($egsGame)) {
-//            return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::NO_ENTRY)), 500);
-//        }
-//        $renderView = $this->renderView('egsgame/show.html.twig', array(
-//            'egsGame' => $egsGame
-//        ));
-//        return new Response($renderView, 200);
-//    }
+    /**
+     * EgsGameからのマスターデータを新規挿入または更新する(最新の更新を反映する)
+     * @Route("/upsert_from_egs_game/", name="admin_game_upsert_from_egs_game")
+     * @Method("GET")
+     */
+    public function upsertFromEgsGameAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $gameRepository = $em->getRepository('AppBundle:Game');
+        $egsGameRepository = $em->getRepository('AppBundle:EgsGame');
+        $egsGameTotalCount = $egsGameRepository->getTotalCount();
+        $batchLimit = 200;
+        for ($i = 0; $i < $egsGameTotalCount; $i += $batchLimit) {
+            // 200件ずつ
+            $egsGames = $egsGameRepository->findBy(array(), null, $batchLimit, $i);
+            $egsGames = json_decode($this->container->get('serializer')->serialize($egsGames, 'json'), true);
+            $gameRepository->upsertFromEgsGame($egsGames);
+        }
+        return new JsonResponse(SuccessCode::get(), 200);
+    }
+
+    /**
+     * EgsGameからのマスターデータを新規挿入または更新する(最新の更新を反映する)
+     * @Route("/toggle_game_is_done/{egsGameId}", name="admin_game_toggle_game_is_done")
+     * @Method("PUT")
+     *
+     * @param $egsGameId Game.egsGameId
+     *
+     * @return JsonResponse
+     */
+    public function toggleGameIsDoneAction($egsGameId)
+    {
+        $newState = $this->getDoctrine()->getManager()->getRepository('AppBundle:Game')->toggleIsDone($egsGameId);
+        return new JsonResponse($newState, 200);
+    }
+
+    /**
+     * EgsGameからのマスターデータを新規挿入または更新する(最新の更新を反映する)
+     * @Route("/toggle_game_is_deleted/{egsGameId}", name="admin_game_toggle_game_is_deleted")
+     * @Method("PUT")
+     *
+     * @param $egsGameId Game.egsGameId
+     *
+     * @return JsonResponse
+     */
+    public function toggleGameIsDeletedAction($egsGameId)
+    {
+        $newState = $this->getDoctrine()->getManager()->getRepository('AppBundle:Game')->toggleIsDeleted($egsGameId);
+        return new JsonResponse($newState, 200);
+    }
 
 //    /**
 //     * Displays a form to edit an existing egsGame entity.

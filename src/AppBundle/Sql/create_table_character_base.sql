@@ -1,6 +1,4 @@
--- daily-batch想定
--- YES or NO
--- セレクトボックスに利用
+-- キャラクターのベース情報
 USE character_database;
 DROP TABLE IF EXISTS `character_base`;
 CREATE TABLE IF NOT EXISTS `character_base` (

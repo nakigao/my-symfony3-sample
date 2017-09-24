@@ -70,7 +70,7 @@ class EgsBrandController extends Controller
      */
     public function showAction(EgsBrand $egsBrand)
     {
-        $egsBrand = json_decode($this->container->get('serializer')->serialize($egsBrand, 'json'));
+        $egsBrand = json_decode($this->container->get('serializer')->serialize($egsBrand, 'json'), true);
         if (empty($egsBrand)) {
             return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::NO_ENTRY)), 500);
         }

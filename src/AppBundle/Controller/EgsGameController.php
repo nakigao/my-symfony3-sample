@@ -83,7 +83,7 @@ class EgsGameController extends Controller
      */
     public function showAction(EgsGame $egsGame)
     {
-        $egsGame = json_decode($this->container->get('serializer')->serialize($egsGame, 'json'));
+        $egsGame = json_decode($this->container->get('serializer')->serialize($egsGame, 'json'), true);
         if (empty($egsGame)) {
             return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::NO_ENTRY)), 500);
         }

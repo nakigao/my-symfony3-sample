@@ -87,7 +87,7 @@ php bin/console doctrine:schema:update --force
 
 {CharacterBase}という既存テーブルに対して
 
-php bin/console doctrine:mapping:convert xml AppBundle --from-database --force --filter=CharacterBase
-php bin/console doctrine:mapping:import AppBundle annotation --filter=CharacterBase
+php bin/console doctrine:mapping:convert xml AppBundle --from-database --force --filter=^CharacterBase$
+php bin/console doctrine:mapping:import AppBundle annotation --filter=^CharacterBase$
 php bin/console doctrine:generate:entities AppBundle/Entity/CharacterBase
 php bin/console generate:doctrine:crud AppBundle:CharacterBase --route-prefix=admin/character_base --overwrite --with-write

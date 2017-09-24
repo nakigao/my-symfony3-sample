@@ -15,7 +15,7 @@
         {% for entry in egsBrands %}
             <tr>
                 <td>
-                    <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="open-infomation-modal" data-action-url="{{ path('admin_egsbrand_show', { 'id': entry.id }) }}"><i class="fa fa-info-circle" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                    <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="open-information-modal" data-action-url="{{ path('admin_egsbrand_show', { 'id': entry.id }) }}"><i class="fa fa-info-circle" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                     {% if entry.url is defined and entry.url is not empty %}
                         <a href="{{ entry.url }}" target="_blank" class="btn btn-default" role="button"><i class="fa fa-external-link" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                     {% else %}

@@ -5,6 +5,9 @@
         <div class="col-sm-12">
             <h1>Games List</h1>
             <p>マスターデータ編集用</p>
+            <p>
+                <a href="javascript:void(0);" class="btn btn-warning" role="button" data-trigger="upsert-from-egs-game" data-action-url="{{ path('admin_game_upsert_from_egs_game') }}">DATA MERGE</a>
+            </p>
         </div>
     </div>
     <div class="row">
@@ -33,7 +36,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            {% if egsGames is defined and egsGames is not empty %}
+            {% if games is defined and games is not empty %}
                 <table class="table table-hover table-condensed table-responsive">
                     <thead>
                     <tr>
@@ -44,18 +47,33 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for entry in egsGames %}
+                    {% for entry in games %}
                         <tr>
                             <td>
-                                <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="open-infomation-modal" data-action-url="{{ path('admin_egsgame_show', { 'id': entry.id }) }}"><i class="fa fa-info-circle" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
-                                {% if entry.url is defined and entry.url is not empty %}
-                                    <a href="{{ entry.url }}" target="_blank" class="btn btn-default" role="button"><i class="fa fa-external-link" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="open-information-modal" data-action-url="{{ path('admin_game_show', { 'id': entry.id }) }}"><i class="fa fa-info-circle" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                                {% if entry.isDone is defined %}
+                                    <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isDone %}btn-success{% else %}btn-default{% endif %}" role="button" data-trigger="toggle-game-is-done" data-action-url="{{ path('admin_game_toggle_game_is_done', { 'egsGameId': entry.egsGameId }) }}"><i class="fa fa-check" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                                {% else %}
+                                    <div class="btn btn-default disabled"><i class="fa" aria-hidden="true" style="width: 12px; height: 12px;"></i></div>
+                                {% endif %}
+                                {% if entry.isDeleted is defined %}
+                                    <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isDeleted %}btn-danger{% else %}btn-default{% endif %}" role="button" data-trigger="toggle-game-is-deleted" data-action-url="{{ path('admin_game_toggle_game_is_deleted', { 'egsGameId': entry.egsGameId }) }}"><i class="fa fa-ban" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                                 {% else %}
                                     <div class="btn btn-default disabled"><i class="fa" aria-hidden="true" style="width: 12px; height: 12px;"></i></div>
                                 {% endif %}
                                 {#<a href="https://www.google.co.jp/search?q=エロゲ ゲーム {{ entry.name }}" target="_blank" class="btn btn-default" role="button"><i class="fa fa-search" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>#}
                             </td>
-                            <td>{{ entry.name }}</td>
+                            <td>
+                                {% if entry.url is defined %}
+                                    {% if entry.url is empty %}
+                                        {{ entry.name }}
+                                    {% else %}
+                                        <a href="{{ entry.url }}" target="_blank">{{ entry.name }}</a>
+                                    {% endif %}
+                                {% else %}
+                                    {{ entry.name }}
+                                {% endif %}
+                            </td>
                             <td>{{ entry.id }}</td>
                             <td>{% if entry.releaseYmd %}{{ entry.releaseYmd|date('Y-m') }}{% endif %}</td>
                         </tr>
