@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `egs_game_year` (
     -- SelectBoxのValue
     value     INT NOT NULL,
     -- SelectBoxのText
-    html_text TEXT NOT NULL
+    html_text VARCHAR(64) NOT NULL
 );
 
 INSERT INTO egs_game_year (year, total, value, html_text)

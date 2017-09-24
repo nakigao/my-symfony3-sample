@@ -36,14 +36,14 @@ class EgsGameMonth
     /**
      * @var string
      *
-     * @ORM\Column(name="value", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="value", type="integer", nullable=false)
      */
     private $value;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="html_text", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="html_text", type="string", length=64, nullable=false)
      */
     private $htmlText;
 
@@ -133,7 +133,7 @@ class EgsGameMonth
     /**
      * Set value
      *
-     * @param string $value
+     * @param integer $value
      *
      * @return EgsGameMonth
      */
@@ -147,7 +147,7 @@ class EgsGameMonth
     /**
      * Get value
      *
-     * @return string
+     * @return integer
      */
     public function getValue()
     {

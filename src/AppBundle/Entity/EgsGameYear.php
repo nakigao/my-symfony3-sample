@@ -36,7 +36,7 @@ class EgsGameYear
     /**
      * @var string
      *
-     * @ORM\Column(name="html_text", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="html_text", type="string", length=64, nullable=false)
      */
     private $htmlText;
 

@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS `egs_game_month` (
     -- 件数
     total INT NOT NULL DEFAULT 0,
     -- SelectBoxのValue
-    value TEXT NOT NULL,
+    value INT NOT NULL,
     -- SelectBoxのText
-    html_text TEXT NOT NULL
+    html_text VARCHAR(64) NOT NULL
 );
 
 INSERT INTO egs_game_month (year, month, total, value, html_text)
