@@ -1,0 +1,92 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block content %}
+    <h1>Characterbase</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Egsgameid</th>
+                <td>{{ characterBase.egsGameId }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ characterBase.name }}</td>
+            </tr>
+            <tr>
+                <th>Middlename</th>
+                <td>{{ characterBase.middleName }}</td>
+            </tr>
+            <tr>
+                <th>Familyname</th>
+                <td>{{ characterBase.familyName }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ characterBase.gender }}</td>
+            </tr>
+            <tr>
+                <th>Truegender</th>
+                <td>{{ characterBase.trueGender }}</td>
+            </tr>
+            <tr>
+                <th>Bloodtype</th>
+                <td>{{ characterBase.bloodType }}</td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td>{{ characterBase.height }}</td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td>{{ characterBase.weight }}</td>
+            </tr>
+            <tr>
+                <th>Cup</th>
+                <td>{{ characterBase.cup }}</td>
+            </tr>
+            <tr>
+                <th>Bust</th>
+                <td>{{ characterBase.bust }}</td>
+            </tr>
+            <tr>
+                <th>Waist</th>
+                <td>{{ characterBase.waist }}</td>
+            </tr>
+            <tr>
+                <th>Hip</th>
+                <td>{{ characterBase.hip }}</td>
+            </tr>
+            <tr>
+                <th>Birthmonth</th>
+                <td>{{ characterBase.birthMonth }}</td>
+            </tr>
+            <tr>
+                <th>Birthday</th>
+                <td>{{ characterBase.birthDay }}</td>
+            </tr>
+            <tr>
+                <th>Introductionpriority</th>
+                <td>{{ characterBase.introductionPriority }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ characterBase.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_character_base_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_character_base_edit', { 'id': characterBase.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

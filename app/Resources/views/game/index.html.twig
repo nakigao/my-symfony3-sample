@@ -3,13 +3,13 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-12">
-            <h1>Egsgames list</h1>
-            <p>マスターデータ閲覧用</p>
+            <h1>Games List</h1>
+            <p>マスターデータ編集用</p>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <form action="" name="game-search-form" id="game-search-form" data-action-url="{{ path('admin_egsgame_index') }}">
+            <form action="" name="game-search-form" id="game-search-form" data-action-url="{{ path('admin_game_index') }}">
                 <label for="year">年: </label>
                 <select name="year">
                     {% for entry in egsGameYears %}

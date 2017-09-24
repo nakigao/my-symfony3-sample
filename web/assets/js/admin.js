@@ -32,7 +32,7 @@ $(function() {
         });
     });
 
-    $('#egs-game-search-form').on('change', function(e) {
+    $('#game-search-form').on('change', function(e) {
         redirectTo($(this));
     });
 

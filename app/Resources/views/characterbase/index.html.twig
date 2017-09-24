@@ -1,0 +1,69 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block content %}
+    <h1>Characterbases list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Egsgameid</th>
+                <th>Name</th>
+                <th>Middlename</th>
+                <th>Familyname</th>
+                <th>Gender</th>
+                <th>Truegender</th>
+                <th>Bloodtype</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Cup</th>
+                <th>Bust</th>
+                <th>Waist</th>
+                <th>Hip</th>
+                <th>Birthmonth</th>
+                <th>Birthday</th>
+                <th>Introductionpriority</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for characterBase in characterBases %}
+            <tr>
+                <td><a href="{{ path('admin_character_base_show', { 'id': characterBase.id }) }}">{{ characterBase.egsGameId }}</a></td>
+                <td>{{ characterBase.name }}</td>
+                <td>{{ characterBase.middleName }}</td>
+                <td>{{ characterBase.familyName }}</td>
+                <td>{{ characterBase.gender }}</td>
+                <td>{{ characterBase.trueGender }}</td>
+                <td>{{ characterBase.bloodType }}</td>
+                <td>{{ characterBase.height }}</td>
+                <td>{{ characterBase.weight }}</td>
+                <td>{{ characterBase.cup }}</td>
+                <td>{{ characterBase.bust }}</td>
+                <td>{{ characterBase.waist }}</td>
+                <td>{{ characterBase.hip }}</td>
+                <td>{{ characterBase.birthMonth }}</td>
+                <td>{{ characterBase.birthDay }}</td>
+                <td>{{ characterBase.introductionPriority }}</td>
+                <td>{{ characterBase.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_character_base_show', { 'id': characterBase.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_character_base_edit', { 'id': characterBase.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_character_base_new') }}">Create a new characterBase</a>
+        </li>
+    </ul>
+{% endblock %}
