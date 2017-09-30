@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <form action="" name="game-search-form" id="game-search-form" data-action-url="{{ path('admin_egsgame_index') }}">
+            <form action="" data-trigger="search-game" data-action-url="{{ path('admin_egsgame_index') }}">
                 <label for="year">年: </label>
                 <select name="year">
                     {% for entry in egsGameYears %}
@@ -19,12 +19,6 @@
                 <label for="month">月: </label>
                 <select name="month">
                     {% for entry in egsGameMonths %}
-                        <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
-                    {% endfor %}
-                </select>
-                <label for="include_deleted">削除も含む: </label>
-                <select name="include_deleted">
-                    {% for entry in logicalTypes %}
                         <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
                     {% endfor %}
                 </select>
@@ -65,6 +59,24 @@
             {% else %}
                 <p>NO DATA</p>
             {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form action="" data-trigger="search-game" data-action-url="{{ path('admin_egsgame_index') }}">
+                <label for="year">年: </label>
+                <select name="year">
+                    {% for entry in egsGameYears %}
+                        <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
+                    {% endfor %}
+                </select>
+                <label for="month">月: </label>
+                <select name="month">
+                    {% for entry in egsGameMonths %}
+                        <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
+                    {% endfor %}
+                </select>
+            </form>
         </div>
     </div>
 {% endblock %}

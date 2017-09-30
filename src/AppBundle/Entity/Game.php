@@ -38,6 +38,13 @@ class Game
     /**
      * @var boolean
      *
+     * @ORM\Column(name="is_normal", type="boolean", nullable=true)
+     */
+    private $isNormal = '0';
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="is_deleted", type="boolean", nullable=true)
      */
     private $isDeleted = '0';
@@ -100,6 +107,30 @@ class Game
     public function getIsDone()
     {
         return $this->isDone;
+    }
+
+    /**
+     * Set isNormal
+     *
+     * @param boolean $isNormal
+     *
+     * @return Game
+     */
+    public function setIsNormal($isNormal)
+    {
+        $this->isNormal = $isNormal;
+
+        return $this;
+    }
+
+    /**
+     * Get isNormal
+     *
+     * @return boolean
+     */
+    public function getIsNormal()
+    {
+        return $this->isNormal;
     }
 
     /**

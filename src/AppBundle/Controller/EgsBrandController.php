@@ -25,9 +25,7 @@ class EgsBrandController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $egsBrands = $em->getRepository('AppBundle:EgsBrand')->findAll();
-
         return $this->render('egsbrand/index.html.twig', array(
             'egsBrands' => $egsBrands,
         ));
@@ -105,13 +103,13 @@ class EgsBrandController extends Controller
 //        ));
 //    }
 //
-    /**
-     * Deletes a egsBrand entity.
-     * @Route("/{id}", name="admin_egsbrand_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, EgsBrand $egsBrand)
-    {
+//    /**
+//     * Deletes a egsBrand entity.
+//     * @Route("/{id}", name="admin_egsbrand_delete")
+//     * @Method("DELETE")
+//     */
+//    public function deleteAction(Request $request, EgsBrand $egsBrand)
+//    {
 //        $form = $this->createDeleteForm($egsBrand);
 //        $form->handleRequest($request);
 //
@@ -120,22 +118,21 @@ class EgsBrandController extends Controller
 //            $em->remove($egsBrand);
 //            $em->flush();
 //        }
-
-        return $this->redirectToRoute('admin_egsbrand_index');
-    }
-
-    /**
-     * Creates a form to delete a egsBrand entity.
-     *
-     * @param EgsBrand $egsBrand The egsBrand entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(EgsBrand $egsBrand)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_egsbrand_delete', array('id' => $egsBrand->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
-    }
+//        return $this->redirectToRoute('admin_egsbrand_index');
+//    }
+//
+//    /**
+//     * Creates a form to delete a egsBrand entity.
+//     *
+//     * @param EgsBrand $egsBrand The egsBrand entity
+//     *
+//     * @return \Symfony\Component\Form\Form The form
+//     */
+//    private function createDeleteForm(EgsBrand $egsBrand)
+//    {
+//        return $this->createFormBuilder()
+//            ->setAction($this->generateUrl('admin_egsbrand_delete', array('id' => $egsBrand->getId())))
+//            ->setMethod('DELETE')
+//            ->getForm();
+//    }
 }

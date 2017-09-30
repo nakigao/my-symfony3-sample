@@ -27,23 +27,30 @@ class EgsGameController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $page = $request->get('page', 1);
+        $limit = $request->get('limit', null);
+        $sortXxxxxx = $request->get('sort', null);
+        $orderXxxxxx = $request->get('order', 'asc');
         $year = $request->get('year', date('Y'));
         $month = $request->get('month', date('m'));
-        $includeDeleted = $request->get('include_deleted', 0);
-        $page = $request->get('page', 1);
-        $sort = $request->get('sort', null);
-        $order = $request->get('order', 'asc');
         $keyword = $request->get('keyword', null);
+        // 検索用のパラメーター設定
+        $sortAndOrders = array(
+            $sortXxxxxx => $orderXxxxxx
+        );
+        $filters = array(
+            'year' => $year,
+            'month' => $month,
+            'keyword' => $keyword,
+        );
         $em = $this->getDoctrine()->getManager();
-        $egsGames = $em->getRepository('AppBundle:EgsGame')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
-        $egsGameYears = $em->getRepository('AppBundle:EgsGameYear')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
-        $egsGameMonths = $em->getRepository('AppBundle:EgsGameMonth')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
-        $logicalTypes = $em->getRepository('AppBundle:LogicalType')->getList($includeDeleted);
+        $egsGames = $em->getRepository('AppBundle:EgsGame')->getList($page, $limit, $sortAndOrders, $filters);
+        $egsGameYears = $em->getRepository('AppBundle:EgsGameYear')->getList($page, $limit, $sortAndOrders, $filters);
+        $egsGameMonths = $em->getRepository('AppBundle:EgsGameMonth')->getList($page, $limit, $sortAndOrders, $filters);
         return $this->render('egsgame/index.html.twig', array(
             'egsGames' => $egsGames,
             'egsGameYears' => $egsGameYears,
-            'egsGameMonths' => $egsGameMonths,
-            'logicalTypes' => $logicalTypes,
+            'egsGameMonths' => $egsGameMonths
         ));
     }
 

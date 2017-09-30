@@ -35,11 +35,16 @@ class BaseRepository extends \Doctrine\ORM\EntityRepository
             'selected' => true
         );
         foreach ($records as $record) {
-            if ($record['value'] == $needle) {
-                $record['selected'] = true;
-                $results[0]['selected'] = false;
-            } else {
+            if ($needle === '') {
+                // needle が null の場合は、選択なし
                 $record['selected'] = false;
+            } else {
+                if ($record['value'] == $needle) {
+                    $record['selected'] = true;
+                    $results[0]['selected'] = false;
+                } else {
+                    $record['selected'] = false;
+                }
             }
             $results[] = $record;
         }
@@ -87,5 +92,13 @@ class BaseRepository extends \Doctrine\ORM\EntityRepository
         return $assoc;
     }
 
+    public function convertAssocToIndexedAssoc($assoc = array(), $needle = 'id')
+    {
+        if (empty($assoc)) {
+            return array();
+        }
+        $indexedAssoc = array_column($assoc, null, $needle);
+        return $indexedAssoc;
+    }
 
 }

@@ -10,37 +10,14 @@
             </p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <form action="" name="game-search-form" id="game-search-form" data-action-url="{{ path('admin_game_index') }}">
-                <label for="year">年: </label>
-                <select name="year">
-                    {% for entry in egsGameYears %}
-                        <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
-                    {% endfor %}
-                </select>
-                <label for="month">月: </label>
-                <select name="month">
-                    {% for entry in egsGameMonths %}
-                        <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
-                    {% endfor %}
-                </select>
-                <label for="include_deleted">削除も含む: </label>
-                <select name="include_deleted">
-                    {% for entry in logicalTypes %}
-                        <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
-                    {% endfor %}
-                </select>
-            </form>
-        </div>
-    </div>
+    {% include 'game/search-form.html.twig' %}
     <div class="row">
         <div class="col-sm-12">
             {% if games is defined and games is not empty %}
                 <table class="table table-hover table-condensed table-responsive">
                     <thead>
                     <tr>
-                        <th class="col-sm-2"></th>
+                        <th class="col-sm-3"></th>
                         <th class="">Name</th>
                         <th class="col-sm-1">Id</th>
                         <th class="col-sm-1">Releaseymd</th>
@@ -53,6 +30,11 @@
                                 <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="open-information-modal" data-action-url="{{ path('admin_game_show', { 'id': entry.id }) }}"><i class="fa fa-info-circle" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                                 {% if entry.isDone is defined %}
                                     <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isDone %}btn-success{% else %}btn-default{% endif %}" role="button" data-trigger="toggle-game-is-done" data-action-url="{{ path('admin_game_toggle_game_is_done', { 'egsGameId': entry.egsGameId }) }}"><i class="fa fa-check" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                                {% else %}
+                                    <div class="btn btn-default disabled"><i class="fa" aria-hidden="true" style="width: 12px; height: 12px;"></i></div>
+                                {% endif %}
+                                {% if entry.isNormal is defined %}
+                                    <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isNormal %}btn-success{% else %}btn-danger{% endif %}" role="button" data-trigger="toggle-game-is-normal" data-action-url="{{ path('admin_game_toggle_game_is_normal', { 'egsGameId': entry.egsGameId }) }}">N</a>
                                 {% else %}
                                     <div class="btn btn-default disabled"><i class="fa" aria-hidden="true" style="width: 12px; height: 12px;"></i></div>
                                 {% endif %}
@@ -83,6 +65,50 @@
             {% else %}
                 <p>NO DATA</p>
             {% endif %}
+        </div>
+    </div>
+    {% include 'game/search-form.html.twig' %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>作風の判断基準</h3>
+            <ul>
+                <li>ノーマル = ともすればコンシュマで出せそうなやつ。恋愛系のエロゲ。</li>
+                <li>
+                    アブノーマル = 絶対コンシュマで出ないだろってレベルのやつ。闇深系のエロゲ。下品すぎるやつ
+                    <ul>
+                        <li>公式サイトがしっかりしてない</li>
+                        <li>ヒロインが1 - 2人のもの ≒ 低価格帯のエロ目的のもの</li>
+                        <li>
+                            以下のキーワードがチラホラしてたら
+                            <ul>
+                                <li>女体化</li>
+                                <li>ネトリ</li>
+                                <li>ビッチ</li>
+                                <li>熟女</li>
+                                <li>凌辱</li>
+                                <li>痴漢</li>
+                                <li>調教</li>
+                                <li>グロテスク</li>
+                                <li>蟲</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>DELETEDにしてる基準</h3>
+            <ul>
+                <li>リンク切れ(公式サイトなし)</li>
+                <li>乙女ゲー</li>
+                <li>キャラメイク系</li>
+                <li>三国～系、戦国～系</li>
+                <li>総集編</li>
+                <li>ルート追加のみのアペンドディスク</li>
+                <li>リマスター版</li>
+            </ul>
         </div>
     </div>
 {% endblock %}

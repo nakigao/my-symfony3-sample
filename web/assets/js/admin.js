@@ -80,6 +80,28 @@ $(function() {
         });
     });
 
+    $('[data-trigger="toggle-game-is-normal"]').on('click', function(e) {
+        var $that = $(this);
+        var actionUrl = $(this).data('action-url');
+        $.ajax({
+            type: 'PUT',
+            url: actionUrl,
+            dataType: 'json',
+            cache: false,
+            beforeSend: function(jqXHR, settings){},
+            success: function(data, textStatus, jqXHR) {
+                $that.removeClass('btn-danger btn-success');
+                if (data.isNormal) {
+                    $that.addClass('btn-success');
+                } else {
+                    $that.addClass('btn-danger');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {},
+            complete: function(jqXHR, textStatus) {}
+        });
+    });
+
     $('[data-trigger="toggle-game-is-deleted"]').on('click', function(e) {
         var $that = $(this);
         var actionUrl = $(this).data('action-url');
@@ -102,7 +124,7 @@ $(function() {
         });
     });
 
-    $('#game-search-form').on('change', function(e) {
+    $('[data-trigger="search-game"]').on('change', function(e) {
         redirectTo($(this));
     });
 

@@ -10,18 +10,18 @@ namespace AppBundle\Repository;
 class EgsGameRepository extends BaseRepository
 {
     /**
-     * @param string $year
-     * @param string $month
-     * @param int $page TODO:実装
-     * @param string $sort TODO:実装
-     * @param string $order
-     * @param int $includeDeleted TODO:実装
-     * @param string $keyword TODO:実装
+     * @param int $page
+     * @param int $limit
+     * @param array $sortAndOrders
+     * @param array $filters
      *
      * @return array
      */
-    public function getList($year = '', $month = '', $page = 0, $sort = '', $order = 'asc', $includeDeleted = 0, $keyword = '')
+    public function getList($page = 1, $limit = 0, $sortAndOrders = array(), $filters = array())
     {
+        $year = empty($filters['year']) ? null : $filters['year'];
+        $month = empty($filters['month']) ? null : $filters['month'];
+        $order = 'ASC';
         $em = $this->getEntityManager();
         if (empty($year) && empty($month)) {
             // 全件

@@ -29,23 +29,31 @@ class GameController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $year = $request->get('year', date('Y'));
-        $month = $request->get('month', date('m'));
-        $includeDeleted = $request->get('include_deleted', 0);
         $page = $request->get('page', 1);
-        $sort = $request->get('sort', null);
-        $order = $request->get('order', 'asc');
-        $keyword = $request->get('keyword', null);
+        $limit = $request->get('limit', null);
+        $sortAndOrders = array(
+            'xxxxxAsc' => $request->get('xxxxx_asc', false),
+            'xxxxxDesc' => $request->get('xxxxx_desc', false)
+        );
+        $filters = array(
+            'year' => $request->get('year', date('Y')),
+            'month' => $request->get('month', date('m')),
+            'isNormal' => $request->get('is_normal', null),
+            'isDeleted' => $request->get('is_deleted', null),
+            'keyword' => $request->get('keyword', null),
+        );
         $em = $this->getDoctrine()->getManager();
-        $games = $em->getRepository('AppBundle:Game')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
-        $egsGameYears = $em->getRepository('AppBundle:EgsGameYear')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
-        $egsGameMonths = $em->getRepository('AppBundle:EgsGameMonth')->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
-        $logicalTypes = $em->getRepository('AppBundle:LogicalType')->getList($includeDeleted);
+        $games = $em->getRepository('AppBundle:Game')->getList($page, $limit, $sortAndOrders, $filters);
+        $egsGameYears = $em->getRepository('AppBundle:EgsGameYear')->getList($page, $limit, $sortAndOrders, $filters);
+        $egsGameMonths = $em->getRepository('AppBundle:EgsGameMonth')->getList($page, $limit, $sortAndOrders, $filters);
+        $isNormalLogicalTypes = $em->getRepository('AppBundle:LogicalType')->getList($filters['isNormal']);
+        $isDeletedLogicalTypes = $em->getRepository('AppBundle:LogicalType')->getList($filters['isDeleted']);
         return $this->render('game/index.html.twig', array(
             'games' => $games,
             'egsGameYears' => $egsGameYears,
             'egsGameMonths' => $egsGameMonths,
-            'logicalTypes' => $logicalTypes,
+            'isNormalLogicalTypes' => $isNormalLogicalTypes,
+            'isDeletedLogicalTypes' => $isDeletedLogicalTypes,
         ));
     }
 
@@ -89,7 +97,7 @@ class GameController extends Controller
     }
 
     /**
-     * EgsGameからのマスターデータを新規挿入または更新する(最新の更新を反映する)
+     * 作業完了/作業未完了をトグル
      * @Route("/toggle_game_is_done/{egsGameId}", name="admin_game_toggle_game_is_done")
      * @Method("PUT")
      *
@@ -104,7 +112,22 @@ class GameController extends Controller
     }
 
     /**
-     * EgsGameからのマスターデータを新規挿入または更新する(最新の更新を反映する)
+     * ノーマル/アブノーマルをトグル
+     * @Route("/toggle_game_is_normal/{egsGameId}", name="admin_game_toggle_game_is_normal")
+     * @Method("PUT")
+     *
+     * @param $egsGameId Game.egsGameId
+     *
+     * @return JsonResponse
+     */
+    public function toggleGameIsNormalAction($egsGameId)
+    {
+        $newState = $this->getDoctrine()->getManager()->getRepository('AppBundle:Game')->toggleIsNormal($egsGameId);
+        return new JsonResponse($newState, 200);
+    }
+
+    /**
+     * 論理削除ON/論理削除OFFをトグル
      * @Route("/toggle_game_is_deleted/{egsGameId}", name="admin_game_toggle_game_is_deleted")
      * @Method("PUT")
      *

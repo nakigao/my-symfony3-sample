@@ -12,38 +12,59 @@ use AppBundle\Entity\Game;
 class GameRepository extends BaseRepository
 {
     /**
-     * @param string $year
-     * @param string $month
-     * @param int $page TODO:実装
-     * @param string $sort TODO:実装
-     * @param string $order
-     * @param int $includeDeleted TODO:実装
-     * @param string $keyword TODO:実装
+     * @param int $page
+     * @param int $limit
+     * @param array $sortAndOrders
+     * @param array $filters
      *
      * @return array
      */
-    public function getList($year = '', $month = '', $page = 0, $sort = '', $order = 'asc', $includeDeleted = 0, $keyword = '')
+    public function getList($page = 1, $limit = 0, $sortAndOrders = array(), $filters = array())
     {
-        // EgsGame
         $em = $this->getEntityManager();
         $egsGameRepository = $em->getRepository('AppBundle:EgsGame');
-        $egsGames = $egsGameRepository->getList($year, $month, $page, $sort, $order, $includeDeleted, $keyword);
+        $egsGames = $egsGameRepository->getList($page, $limit, $sortAndOrders, $filters);
         if (empty($egsGames)) {
             return array();
         }
         // Game
         $egsGameIds = array_column($egsGames, 'id');
-        $games = $this->findBy(array('egsGameId' => $egsGameIds));
+        $criteria = array(
+            'egsGameId' => $egsGameIds,
+        );
+        if ($filters['isNormal'] === '') {
+            // 指定なし
+        } else {
+            if (empty($filters['isNormal'])) {
+                $criteria['isNormal'] = true;
+            } else {
+                // 指定なし
+            }
+        }
+        if ($filters['isDeleted'] === '') {
+            // 指定なし
+        } else {
+            if (empty($filters['isDeleted'])) {
+                $criteria['isDeleted'] = false;
+            } else {
+                // 指定なし
+            }
+        }
+        $games = $this->findBy($criteria);
         $games = $this->convertEntitiesToAssoc($games, 'egsGameId');
-        // FIXME: 対応するデータがなかった場合は、どうする？
         // EgsGame + Game
         $list = array();
         foreach ($egsGames as $egsGame) {
-            $temp = $egsGame;
-            $temp['egsGameId'] = empty($games[$egsGame['id']]['egsGameId']) ? false : $games[$egsGame['id']]['egsGameId'];
-            $temp['isDone'] = empty($games[$egsGame['id']]['isDone']) ? false : $games[$egsGame['id']]['isDone'];
-            $temp['isDeleted'] = empty($games[$egsGame['id']]['isDeleted']) ? false : $games[$egsGame['id']]['isDeleted'];
-            $list[] = array_merge($egsGame, $games[$egsGame['id']]);
+            if (empty($games[$egsGame['id']])) {
+                continue;
+            }
+            $game = $games[$egsGame['id']];
+            $egsGameJoinToGame = $egsGame;
+            $egsGameJoinToGame['egsGameId'] = empty($game['egsGameId']) ? false : $game['egsGameId'];
+            $egsGameJoinToGame['isDone'] = empty($game['isDone']) ? false : $game['isDone'];
+            $egsGameJoinToGame['isNormal'] = empty($game['isNormal']) ? false : $game['isNormal'];
+            $egsGameJoinToGame['isDeleted'] = empty($game['isDeleted']) ? false : $game['isDeleted'];
+            $list[] = $egsGameJoinToGame;
         }
         return $list;
     }
@@ -91,6 +112,7 @@ EOM;
             $entity = new Game();
             $entity->setEgsGameId($record['id']);
             $entity->setIsDone(false);
+            $entity->setIsNormal(false);
             $entity->setIsDeleted(false);
             $em->persist($entity);
         }
@@ -113,6 +135,30 @@ EOM;
         $game = $this->findOneBy(array('egsGameId' => $egsGameId));
         $newState = empty($game->getIsDone()) ? true : false;
         $game->setIsDone($newState);
+        $em->merge($game);
+        $em->flush();
+        $em->clear();
+        $returnValue = $this->convertEntityToAssoc($game, 'id');
+        if (empty($returnValue[$game->getId()])) {
+            return array();
+        }
+        return $returnValue[$game->getId()];
+    }
+
+    /**
+     * @param int $egsGameId
+     *
+     * @return array
+     */
+    public function toggleIsNormal($egsGameId = 0)
+    {
+        if (empty($egsGameId)) {
+            return array();
+        }
+        $em = $this->getEntityManager();
+        $game = $this->findOneBy(array('egsGameId' => $egsGameId));
+        $newState = empty($game->getIsNormal()) ? true : false;
+        $game->setIsNormal($newState);
         $em->merge($game);
         $em->flush();
         $em->clear();

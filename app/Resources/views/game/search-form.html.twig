@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-sm-12">
+        <form action="" data-trigger="search-game" data-action-url="{{ path('admin_game_index') }}">
+            <label for="year">年: </label>
+            <select name="year">
+                {% for entry in egsGameYears %}
+                    <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
+                {% endfor %}
+            </select>
+            <label for="month">月: </label>
+            <select name="month">
+                {% for entry in egsGameMonths %}
+                    <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
+                {% endfor %}
+            </select>
+            <label for="is_normal">アブノーマルも含む: </label>
+            <select name="is_normal">
+                {% for entry in isNormalLogicalTypes %}
+                    <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
+                {% endfor %}
+            </select>
+            <label for="is_deleted">削除も含む: </label>
+            <select name="is_deleted">
+                {% for entry in isDeletedLogicalTypes %}
+                    <option value="{{ entry.value }}" {% if entry.selected %}selected{% endif %}>{{ entry.htmlText }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+</div>

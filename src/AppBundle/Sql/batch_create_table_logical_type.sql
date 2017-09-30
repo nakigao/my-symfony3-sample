@@ -12,5 +12,5 @@ CREATE TABLE IF NOT EXISTS `logical_type` (
 );
 
 INSERT INTO logical_type (value, html_text) VALUES
-    (1, 'NO'),
-    (2, 'YES');
+    (0, 'NO'),
+    (1, 'YES');
