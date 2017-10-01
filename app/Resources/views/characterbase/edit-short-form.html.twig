@@ -1,0 +1,35 @@
+<tr>
+    <td align="center">
+        <input type="hidden" name="game_id" value="{{ characterBase.gameId }}">
+        <input type="number" name="introduction_priority" value="{{ characterBase.introductionPriority }}" style="height: 36px; width: 96px;">
+        <br>
+        <select name="" id="" style="width: 96px;">
+            <option value="1">不明</option>
+            <option value="2">男性</option>
+            <option value="3">女性</option>
+            <option value="3">中性</option>
+            <option value="3">その他</option>
+        </select>
+    </td>
+    <td align="center">
+        <input type="text" name="name" value="{{ characterBase.name }}" placeholder="名" autocomplete="off" style="height: 36px;">
+        <br>
+        <input type="text" name="name_kana" value="{{ characterBase.nameKana }}" placeholder="名(カナ)" autocomplete="off" style="height: 36px;">
+    </td>
+    <td align="center">
+        <input type="text" name="middle_name" value="{{ characterBase.middleName }}" placeholder="ミドルネーム" autocomplete="off" style="height: 36px;">
+        <br>
+        <input type="text" name="middle_name_kana" value="{{ characterBase.middleNameKana }}" placeholder="ミドルネーム(カナ)" autocomplete="off" style="height: 36px;">
+    </td>
+    <td align="center">
+        <input type="text" name="family_name" value="{{ characterBase.familyName }}" placeholder="姓" autocomplete="off" style="height: 36px;">
+        <br>
+        <input type="text" name="family_name_kana" value="{{ characterBase.familyNameKana }}" placeholder="姓(カナ)" autocomplete="off" style="height: 36px;">
+    </td>
+    <td align="center">
+        <button class="btn btn-default" style="height: 36px; width: 42px" data-trigger="update-character-base-short" data-action-url="{{ path('admin_character_base_update_short', { 'id': characterBase.id }) }}" data-csrf-token="{{ csrf_token('appbundle_characterbase') }}"><i class="fa fa-cloud-upload" aria-hidden="true" style="width: 12px; height: 12px;"></i></button>
+    </td>
+    <td align="center">
+        <button class="btn btn-default" style="height: 36px; width: 42px" data-trigger="redirect-to-character-base-edit" data-action-url="{{ path('admin_character_base_edit', { 'id': characterBase.id }) }}"><i class="fa fa-external-link-square" aria-hidden="true" style="width: 12px; height: 12px;"></i></button>
+    </td>
+</tr>

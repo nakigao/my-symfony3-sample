@@ -13,9 +13,29 @@ class CharacterBaseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('egsGameId')->add('name')->add('middleName')->add('familyName')->add('gender')->add('trueGender')->add('bloodType')->add('height')->add('weight')->add('cup')->add('bust')->add('waist')->add('hip')->add('birthMonth')->add('birthDay')->add('introductionPriority');
+        $builder
+            ->add('gameId')
+            ->add('name')
+            ->add('middleName')
+            ->add('familyName')
+            ->add('nameKana')
+            ->add('middleNameKana')
+            ->add('familyNameKana')
+            ->add('gender')
+            ->add('trueGender')
+            ->add('bloodType')
+            ->add('height')
+            ->add('weight')
+            ->add('cup')
+            ->add('bust')
+            ->add('waist')
+            ->add('hip')
+            ->add('birthMonth')
+            ->add('birthDay')
+            ->add('race')
+            ->add('introductionPriority');
     }
-    
+
     /**
      * {@inheritdoc}
      */

@@ -77,6 +77,28 @@ body {
     width: 3px;
 }
 
+/* Placeholder */
+
+:placeholder-shown {
+    opacity: 0.6;
+}
+
+::-webkit-input-placeholder {
+    opacity: 0.6;
+}
+
+:-moz-placeholder {
+    opacity: 0.6;
+}
+
+::-moz-placeholder {
+    opacity: 0.6;
+}
+
+:-ms-input-placeholder {
+    opacity: 0.6;
+}
+
 a {
     color: #6ABFC6;
     text-decoration: none;
@@ -313,4 +335,21 @@ img.site-symbol {
 
 .toggle.android .toggle-handle {
     border-radius: 0;
+}
+
+/* Bootstrap table borderless style */
+
+.table.table-borderless > tbody > tr > td,
+.table.table-borderless > tbody > tr > th,
+.table.table-borderless > tfoot > tr > td,
+.table.table-borderless > tfoot > tr > th,
+.table.table-borderless > thead > tr > td,
+.table.table-borderless > thead > tr > th {
+    border: none;
+}
+
+.table.table-borderless input,
+.table.table-borderless select {
+    padding: 8px;
+    width: 100%;
 }

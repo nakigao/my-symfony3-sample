@@ -12,6 +12,50 @@ use AppBundle\Entity\Game;
 class GameRepository extends BaseRepository
 {
     /**
+     * @param int $pk
+     *
+     * @return array
+     */
+    public function get($pk = 0)
+    {
+        if (empty($pk)) {
+            return array();
+        }
+        $game = $this->findOneBy(array(
+            'id' => $pk
+        ));
+        if (empty($game)) {
+            return array();
+        }
+        $game = $this->convertEntityToAssoc($game, 'id');
+        $em = $this->getEntityManager();
+        $egsGameRepository = $em->getRepository('AppBundle:EgsGame');
+        $egsGame = $egsGameRepository->findOneBy(array(
+            'id' => $game[$pk]['egsGameId']
+        ));
+        if (empty($egsGame)) {
+            return array();
+        }
+        $releaseYmd = $egsGame->getReleaseYmd()->format('Y-m-d');
+        $egsGame->setReleaseYmd($releaseYmd);
+        $egsGame = $this->convertEntityToAssoc($egsGame);
+        return $this->mergeEgsGame($game[$pk], $egsGame[$game[$pk]['egsGameId']]);
+    }
+
+    /**
+     * @param array $game
+     * @param array $egsGame
+     *
+     * @return array
+     */
+    public function mergeEgsGame($game = array(), $egsGame = array())
+    {
+        $mergedData = $game;
+        $mergedData['egsGame'] = $egsGame;
+        return $mergedData;
+    }
+
+    /**
      * @param int $page
      * @param int $limit
      * @param array $sortAndOrders
@@ -58,13 +102,7 @@ class GameRepository extends BaseRepository
             if (empty($games[$egsGame['id']])) {
                 continue;
             }
-            $game = $games[$egsGame['id']];
-            $egsGameJoinToGame = $egsGame;
-            $egsGameJoinToGame['egsGameId'] = empty($game['egsGameId']) ? false : $game['egsGameId'];
-            $egsGameJoinToGame['isDone'] = empty($game['isDone']) ? false : $game['isDone'];
-            $egsGameJoinToGame['isNormal'] = empty($game['isNormal']) ? false : $game['isNormal'];
-            $egsGameJoinToGame['isDeleted'] = empty($game['isDeleted']) ? false : $game['isDeleted'];
-            $list[] = $egsGameJoinToGame;
+            $list[] = $this->mergeEgsGame($games[$egsGame['id']], $egsGame);
         }
         return $list;
     }
@@ -122,17 +160,17 @@ EOM;
     }
 
     /**
-     * @param int $egsGameId
+     * @param int $id
      *
      * @return array
      */
-    public function toggleIsDone($egsGameId = 0)
+    public function toggleIsDone($id = 0)
     {
-        if (empty($egsGameId)) {
+        if (empty($id)) {
             return array();
         }
         $em = $this->getEntityManager();
-        $game = $this->findOneBy(array('egsGameId' => $egsGameId));
+        $game = $this->findOneBy(array('id' => $id));
         $newState = empty($game->getIsDone()) ? true : false;
         $game->setIsDone($newState);
         $em->merge($game);
@@ -146,17 +184,17 @@ EOM;
     }
 
     /**
-     * @param int $egsGameId
+     * @param int $id
      *
      * @return array
      */
-    public function toggleIsNormal($egsGameId = 0)
+    public function toggleIsNormal($id = 0)
     {
-        if (empty($egsGameId)) {
+        if (empty($id)) {
             return array();
         }
         $em = $this->getEntityManager();
-        $game = $this->findOneBy(array('egsGameId' => $egsGameId));
+        $game = $this->findOneBy(array('id' => $id));
         $newState = empty($game->getIsNormal()) ? true : false;
         $game->setIsNormal($newState);
         $em->merge($game);
@@ -170,17 +208,17 @@ EOM;
     }
 
     /**
-     * @param int $egsGameId
+     * @param int $id
      *
      * @return array
      */
-    public function toggleIsDeleted($egsGameId = 0)
+    public function toggleIsDeleted($id = 0)
     {
-        if (empty($egsGameId)) {
+        if (empty($id)) {
             return array();
         }
         $em = $this->getEntityManager();
-        $game = $this->findOneBy(array('egsGameId' => $egsGameId));
+        $game = $this->findOneBy(array('id' => $id));
         $newState = empty($game->getIsDeleted()) ? true : false;
         $game->setIsDeleted($newState);
         $em->merge($game);

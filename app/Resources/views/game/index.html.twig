@@ -29,17 +29,17 @@
                             <td>
                                 <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="open-information-modal" data-action-url="{{ path('admin_game_show', { 'id': entry.id }) }}"><i class="fa fa-info-circle" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                                 {% if entry.isDone is defined %}
-                                    <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isDone %}btn-success{% else %}btn-default{% endif %}" role="button" data-trigger="toggle-game-is-done" data-action-url="{{ path('admin_game_toggle_game_is_done', { 'egsGameId': entry.egsGameId }) }}"><i class="fa fa-check" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                                    <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isDone %}btn-success{% else %}btn-default{% endif %}" role="button" data-trigger="toggle-game-is-done" data-action-url="{{ path('admin_game_toggle_game_is_done', { 'id': entry.id }) }}"><i class="fa fa-check" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                                 {% else %}
                                     <div class="btn btn-default disabled"><i class="fa" aria-hidden="true" style="width: 12px; height: 12px;"></i></div>
                                 {% endif %}
                                 {% if entry.isNormal is defined %}
-                                    <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isNormal %}btn-success{% else %}btn-danger{% endif %}" role="button" data-trigger="toggle-game-is-normal" data-action-url="{{ path('admin_game_toggle_game_is_normal', { 'egsGameId': entry.egsGameId }) }}">N</a>
+                                    <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isNormal %}btn-success{% else %}btn-danger{% endif %}" role="button" data-trigger="toggle-game-is-normal" data-action-url="{{ path('admin_game_toggle_game_is_normal', { 'id': entry.id }) }}">N</a>
                                 {% else %}
                                     <div class="btn btn-default disabled"><i class="fa" aria-hidden="true" style="width: 12px; height: 12px;"></i></div>
                                 {% endif %}
                                 {% if entry.isDeleted is defined %}
-                                    <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isDeleted %}btn-danger{% else %}btn-default{% endif %}" role="button" data-trigger="toggle-game-is-deleted" data-action-url="{{ path('admin_game_toggle_game_is_deleted', { 'egsGameId': entry.egsGameId }) }}"><i class="fa fa-ban" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                                    <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isDeleted %}btn-danger{% else %}btn-default{% endif %}" role="button" data-trigger="toggle-game-is-deleted" data-action-url="{{ path('admin_game_toggle_game_is_deleted', { 'id': entry.id }) }}"><i class="fa fa-ban" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                                 {% else %}
                                     <div class="btn btn-default disabled"><i class="fa" aria-hidden="true" style="width: 12px; height: 12px;"></i></div>
                                 {% endif %}
@@ -48,16 +48,16 @@
                             <td>
                                 {% if entry.url is defined %}
                                     {% if entry.url is empty %}
-                                        {{ entry.name }}
+                                        {{ entry.egsGame.name }}
                                     {% else %}
-                                        <a href="{{ entry.url }}" target="_blank">{{ entry.name }}</a>
+                                        <a href="{{ entry.url }}" target="_blank">{{ entry.egsGame.name }}</a>
                                     {% endif %}
                                 {% else %}
-                                    {{ entry.name }}
+                                    {{ entry.egsGame.name }}
                                 {% endif %}
                             </td>
                             <td>{{ entry.id }}</td>
-                            <td>{% if entry.releaseYmd %}{{ entry.releaseYmd|date('Y-m') }}{% endif %}</td>
+                            <td>{% if entry.egsGame.releaseYmd %}{{ entry.egsGame.releaseYmd|date('Y-m') }}{% endif %}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

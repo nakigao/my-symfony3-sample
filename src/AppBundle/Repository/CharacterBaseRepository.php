@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\CharacterBase;
+
 /**
  * CharacterBaseRepository
  *
@@ -10,4 +12,130 @@ namespace AppBundle\Repository;
  */
 class CharacterBaseRepository extends BaseRepository
 {
+    /**
+     * @param CharacterBase $entity
+     *
+     * @return array
+     */
+    public function create($entity = null)
+    {
+        if (empty($entity)) {
+            return array();
+        }
+        $em = $this->getEntityManager();
+        // 表示優先順番のデフォルト設定
+        $introductionPriority = $entity->getIntroductionPriority();
+        $maxIntroductionPriority = $this->getMaxIntroductionPriority($entity->getGameId());
+        if (empty($introductionPriority)) {
+            // 指定されていない場合 = 最大値+1
+            $entity->setIntroductionPriority($maxIntroductionPriority + 1);
+        } else {
+            if ($maxIntroductionPriority < $introductionPriority) {
+                // 指定されていた場合1 = 既存のデータの最大値よりも大きい = そのまま設定
+                // nothing to do
+            } else {
+                // 指定されていた場合2 = 既存のデータの最大値以下 = 最大値+1
+                $entity->setIntroductionPriority($maxIntroductionPriority + 1);
+            }
+        }
+        $em->persist($entity);
+        $em->flush();
+        $em->clear();
+        $returnValue = $this->convertEntityToAssoc($entity, 'id');
+        if (empty($returnValue[$entity->getId()])) {
+            return array();
+        }
+        return $returnValue[$entity->getId()];
+    }
+
+    /**
+     * @param CharacterBase $entity
+     *
+     * @param CharacterBase $entity
+     *
+     * @return array
+     */
+    public function update($entity = null)
+    {
+        if (empty($entity)) {
+            return array();
+        }
+        $em = $this->getEntityManager();
+        // 表示優先順番のデフォルト設定
+        $introductionPriority = $entity->getIntroductionPriority();
+        $currentIntroductionPriority = $this->getCurrentIntroductionPriority($entity->getId());
+        $maxIntroductionPriority = $this->getMaxIntroductionPriority($entity->getGameId());
+        if (empty($introductionPriority)) {
+            // 指定されていない場合 = 最大値+1
+            $entity->setIntroductionPriority($maxIntroductionPriority + 1);
+        } else {
+            // 指定されていた場合1 = そのまま設定(重複は許容)
+            // nothing to do
+        }
+        $em->merge($entity);
+        $em->flush();
+        $em->clear();
+        $returnValue = $this->convertEntityToAssoc($entity, 'id');
+        if (empty($returnValue[$entity->getId()])) {
+            return array();
+        }
+        return $returnValue[$entity->getId()];
+    }
+
+    /**
+     * introductionPriority の最大値を取得する
+     *
+     * @param int $gameId
+     *
+     * @return int
+     */
+    public function getMaxIntroductionPriority($gameId = 0)
+    {
+        if (empty($gameId)) {
+            // ゲームで絞り込まない場合 = 常に0
+            return 0;
+        }
+        $em = $this->getEntityManager();
+        $dql = <<<EOM
+SELECT max(o.introductionPriority)
+FROM {$this->_entityName} o 
+WHERE o.gameId = :gameId
+EOM;
+        $query = $em->createQuery($dql)->setParameter('gameId', $gameId);
+        $records = $query->getArrayResult();
+        if (empty($records[0][1])) {
+            // 見つからなかった場合 = 常に0
+            return 0;
+        }
+        return $records[0][1];
+    }
+
+    /**
+     * introductionPriority の現在値を取得する
+     *
+     * @param int $id
+     *
+     * @return int
+     */
+    public function getCurrentIntroductionPriority($id = 0)
+    {
+        if (empty($id)) {
+            // 指定がない場合 = 常に0
+            return 0;
+        }
+        $em = $this->getEntityManager();
+        $dql = <<<EOM
+SELECT o.introductionPriority
+FROM {$this->_entityName} o 
+WHERE o.id = :id
+EOM;
+        $query = $em->createQuery($dql)->setParameter('id', $id);
+        $records = $query->getArrayResult();
+        if (empty($records[0]['introductionPriority'])) {
+            // 見つからなかった場合 = 常に0
+            return 0;
+        }
+        return $records[0]['introductionPriority'];
+    }
+
 }

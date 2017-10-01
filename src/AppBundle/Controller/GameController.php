@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\EgsGame;
 use AppBundle\Entity\Game;
 use AppBundle\Utils\ErrorCode;
 use AppBundle\Utils\SuccessCode;
@@ -12,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Error\Error;
 
 /**
  * Game controller.
@@ -61,16 +59,23 @@ class GameController extends Controller
      * Finds and displays a Game entity.
      * @Route("/{id}", name="admin_game_show")
      * @Method("GET")
+     *
+     * @param int $id
+     *
      * @return Response
      */
-    public function showAction()
+    public function showAction($id = 0)
     {
-        $egsGame = json_decode($this->container->get('serializer')->serialize(array(), 'json'), true);
-        if (empty($egsGame)) {
+        $em = $this->getDoctrine()->getManager();
+        $game = $em->getRepository('AppBundle:Game')->get($id);
+        if (empty($game)) {
             return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::NO_ENTRY)), 500);
         }
+        $characterBases = $em->getRepository('AppBundle:CharacterBase')->findBy(array('gameId' => $id), array('introductionPriority' => 'ASC'));
+        $characterBases = $em->getRepository('AppBundle:CharacterBase')->convertEntitiesToAssoc($characterBases);
         $renderView = $this->renderView('game/show.html.twig', array(
-            'egsGame' => $egsGame
+            'game' => $game,
+            'characterBases' => $characterBases
         ));
         return new Response($renderView, 200);
     }
@@ -98,46 +103,46 @@ class GameController extends Controller
 
     /**
      * 作業完了/作業未完了をトグル
-     * @Route("/toggle_game_is_done/{egsGameId}", name="admin_game_toggle_game_is_done")
+     * @Route("/toggle_game_is_done/{id}", name="admin_game_toggle_game_is_done")
      * @Method("PUT")
      *
-     * @param $egsGameId Game.egsGameId
+     * @param int $id Game.id
      *
      * @return JsonResponse
      */
-    public function toggleGameIsDoneAction($egsGameId)
+    public function toggleGameIsDoneAction($id = 0)
     {
-        $newState = $this->getDoctrine()->getManager()->getRepository('AppBundle:Game')->toggleIsDone($egsGameId);
+        $newState = $this->getDoctrine()->getManager()->getRepository('AppBundle:Game')->toggleIsDone($id);
         return new JsonResponse($newState, 200);
     }
 
     /**
      * ノーマル/アブノーマルをトグル
-     * @Route("/toggle_game_is_normal/{egsGameId}", name="admin_game_toggle_game_is_normal")
+     * @Route("/toggle_game_is_normal/{id}", name="admin_game_toggle_game_is_normal")
      * @Method("PUT")
      *
-     * @param $egsGameId Game.egsGameId
+     * @param int $id Game.id
      *
      * @return JsonResponse
      */
-    public function toggleGameIsNormalAction($egsGameId)
+    public function toggleGameIsNormalAction($id = 0)
     {
-        $newState = $this->getDoctrine()->getManager()->getRepository('AppBundle:Game')->toggleIsNormal($egsGameId);
+        $newState = $this->getDoctrine()->getManager()->getRepository('AppBundle:Game')->toggleIsNormal($id);
         return new JsonResponse($newState, 200);
     }
 
     /**
      * 論理削除ON/論理削除OFFをトグル
-     * @Route("/toggle_game_is_deleted/{egsGameId}", name="admin_game_toggle_game_is_deleted")
+     * @Route("/toggle_game_is_deleted/{id}", name="admin_game_toggle_game_is_deleted")
      * @Method("PUT")
      *
-     * @param $egsGameId Game.egsGameId
+     * @param int $id Game.id
      *
      * @return JsonResponse
      */
-    public function toggleGameIsDeletedAction($egsGameId)
+    public function toggleGameIsDeletedAction($id = 0)
     {
-        $newState = $this->getDoctrine()->getManager()->getRepository('AppBundle:Game')->toggleIsDeleted($egsGameId);
+        $newState = $this->getDoctrine()->getManager()->getRepository('AppBundle:Game')->toggleIsDeleted($id);
         return new JsonResponse($newState, 200);
     }
 

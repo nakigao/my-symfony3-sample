@@ -10,6 +10,9 @@ class ErrorCode
 {
     const NO_ENTRY = 'no_entry';
     const UNKNOWN = 'unknown';
+    const INVALID_ACCESS = 'invalid access';
+    const DIRTY_REQUEST = 'dirty request';
+    const CANNOT_CREATE_ENTRY = 'can not create entry';
 
     /**
      * @param array ...$codes error code
@@ -45,6 +48,18 @@ class ErrorCode
             case self::NO_ENTRY:
                 $error['code'] = self::NO_ENTRY;
                 $error['message'] = 'no entry';
+                break;
+            case self::INVALID_ACCESS:
+                $error['code'] = self::INVALID_ACCESS;
+                $error['message'] = 'invalid access';
+                break;
+            case self::DIRTY_REQUEST:
+                $error['code'] = self::DIRTY_REQUEST;
+                $error['message'] = 'dirty request';
+                break;
+            case self::CANNOT_CREATE_ENTRY:
+                $error['code'] = self::CANNOT_CREATE_ENTRY;
+                $error['message'] = 'can not create entry';
                 break;
             default:
                 $error['code'] = self::UNKNOWN;

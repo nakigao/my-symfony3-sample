@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CharacterBase
@@ -24,14 +25,16 @@ class CharacterBase
     /**
      * @var integer
      *
-     * @ORM\Column(name="egs_game_id", type="bigint", nullable=false)
+     * @ORM\Column(name="game_id", type="bigint", nullable=false)
+     * @Assert\NotBlank()
      */
-    private $egsGameId;
+    private $gameId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
      */
     private $name = '';
 
@@ -50,23 +53,45 @@ class CharacterBase
     private $familyName = '';
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name_kana", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
+     */
+    private $nameKana = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="middle_name_kana", type="string", length=255, nullable=true)
+     */
+    private $middleNameKana = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="family_name_kana", type="string", length=255, nullable=true)
+     */
+    private $familyNameKana = '';
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="gender", type="integer", nullable=false)
+     * @ORM\Column(name="gender", type="integer", nullable=true)
      */
     private $gender = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="true_gender", type="integer", nullable=false)
+     * @ORM\Column(name="true_gender", type="integer", nullable=true)
      */
     private $trueGender = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="blood_type", type="integer", nullable=false)
+     * @ORM\Column(name="blood_type", type="integer", nullable=true)
      */
     private $bloodType = '1';
 
@@ -129,6 +154,13 @@ class CharacterBase
     /**
      * @var integer
      *
+     * @ORM\Column(name="race", type="integer", nullable=true)
+     */
+    private $race = '1';
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="introduction_priority", type="integer", nullable=true)
      */
     private $introductionPriority;
@@ -136,27 +168,37 @@ class CharacterBase
 
 
     /**
-     * Set egsGameId
+     * Get id
      *
-     * @param integer $egsGameId
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set gameId
+     *
+     * @param integer $gameId
      *
      * @return CharacterBase
      */
-    public function setEgsGameId($egsGameId)
+    public function setGameId($gameId)
     {
-        $this->egsGameId = $egsGameId;
+        $this->gameId = $gameId;
 
         return $this;
     }
 
     /**
-     * Get egsGameId
+     * Get gameId
      *
      * @return integer
      */
-    public function getEgsGameId()
+    public function getGameId()
     {
-        return $this->egsGameId;
+        return $this->gameId;
     }
 
     /**
@@ -229,6 +271,78 @@ class CharacterBase
     public function getFamilyName()
     {
         return $this->familyName;
+    }
+
+    /**
+     * Set nameKana
+     *
+     * @param string $nameKana
+     *
+     * @return CharacterBase
+     */
+    public function setNameKana($nameKana)
+    {
+        $this->nameKana = $nameKana;
+
+        return $this;
+    }
+
+    /**
+     * Get nameKana
+     *
+     * @return string
+     */
+    public function getNameKana()
+    {
+        return $this->nameKana;
+    }
+
+    /**
+     * Set middleNameKana
+     *
+     * @param string $middleNameKana
+     *
+     * @return CharacterBase
+     */
+    public function setMiddleNameKana($middleNameKana)
+    {
+        $this->middleNameKana = $middleNameKana;
+
+        return $this;
+    }
+
+    /**
+     * Get middleNameKana
+     *
+     * @return string
+     */
+    public function getMiddleNameKana()
+    {
+        return $this->middleNameKana;
+    }
+
+    /**
+     * Set familyNameKana
+     *
+     * @param string $familyNameKana
+     *
+     * @return CharacterBase
+     */
+    public function setFamilyNameKana($familyNameKana)
+    {
+        $this->familyNameKana = $familyNameKana;
+
+        return $this;
+    }
+
+    /**
+     * Get familyNameKana
+     *
+     * @return string
+     */
+    public function getFamilyNameKana()
+    {
+        return $this->familyNameKana;
     }
 
     /**
@@ -496,6 +610,30 @@ class CharacterBase
     }
 
     /**
+     * Set race
+     *
+     * @param integer $race
+     *
+     * @return CharacterBase
+     */
+    public function setRace($race)
+    {
+        $this->race = $race;
+
+        return $this;
+    }
+
+    /**
+     * Get race
+     *
+     * @return integer
+     */
+    public function getRace()
+    {
+        return $this->race;
+    }
+
+    /**
      * Set introductionPriority
      *
      * @param integer $introductionPriority
@@ -517,15 +655,5 @@ class CharacterBase
     public function getIntroductionPriority()
     {
         return $this->introductionPriority;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

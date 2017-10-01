@@ -1,9 +1,14 @@
 <div class="container-fluid">
+    <div class="modal-top-right-buttons-container" style="position: relative;">
+        <div class="modal-top-right-buttons" style="position: absolute;right: 0;top: 0;z-index: 1;">
+            <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="reload-information-modal" data-action-url="{{ path('admin_game_show', { 'id': game.id }) }}"><i class="fa fa-refresh" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-12">
-            <p>{{ egsGame.id }}</p>
-            <p class="" style="font-size: large; font-weight: bold">{{ egsGame.name }}</p>
-            <p>({{ egsGame.nameKana }})</p>
+            <p>{{ game.id }}</p>
+            <p class="" style="font-size: large; font-weight: bold">{{ game.egsGame.name }}</p>
+            <p>({{ game.egsGame.nameKana }})</p>
         </div>
     </div>
     <div class="row">
@@ -11,18 +16,44 @@
             <table class="table">
                 <tbody>
                 <tr>
+                    <th>Egsgameid</th>
+                    <td>{{ game.egsGame.id }}</td>
+                </tr>
+                <tr>
                     <th>Egsbrandid</th>
-                    <td>{{ egsGame.egsBrandId }}</td>
+                    <td>{{ game.egsGame.egsBrandId }}</td>
                 </tr>
                 <tr>
                     <th>Releaseymd</th>
-                    <td>{% if egsGame.releaseYmd %}{{ egsGame.releaseYmd|date('Y-m-d') }}{% endif %}</td>
+                    <td>{% if game.egsGame.releaseYmd %}{{ game.egsGame.releaseYmd|date('Y-m-d') }}{% endif %}</td>
                 </tr>
                 <tr>
                     <th>Url</th>
-                    <td><a href="{{ egsGame.url }}" target="_blank">{{ egsGame.url }}</a></td>
+                    <td>
+                        <a href="{{ game.egsGame.url }}" target="_blank">{{ game.egsGame.url }}</a>
+                    </td>
                 </tr>
                 </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-borderless table-striped">
+                <tbody>
+                {% if characterBases is defined and characterBases is not empty %}
+                {% for characterBase in characterBases %}
+                    {% include 'characterbase/edit-short-form.html.twig' %}
+                {% endfor %}
+                {% endif %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <a href="javascript:void(0);" class="btn btn-default" style="width: 100%" role="button" data-trigger="get-new-character-base-short-form" data-action-url="{{ path('admin_character_base_get_short_form', { 'gameId': game.id }) }}"><i class="fa fa-plus" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         </div>
     </div>

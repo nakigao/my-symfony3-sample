@@ -43,6 +43,17 @@ class EgsGameRepository extends BaseRepository
                 $query = $em->createQuery($dql)->setParameter('releaseYmd', $needle);
             }
         }
-        return $query->getArrayResult();
+        $records = $query->getArrayResult();
+        if (empty($records)) {
+            return array();
+        }
+        $results = array();
+        foreach ($records as $record) {
+            $temp = $record;
+            $releaseYmd = $record['releaseYmd']->format('Y-m-d');
+            $temp['releaseYmd'] = $releaseYmd;
+            $results[] = $temp;
+        }
+        return $results;
     }
 }

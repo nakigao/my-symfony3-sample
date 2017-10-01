@@ -79,11 +79,10 @@ class EgsBrandController extends Controller
     }
 
 //    /**
-// * Displays a form to edit an existing egsBrand entity.
-// *
-// * @Route("/{id}/edit", name="admin_egsbrand_edit")
-// * @Method({"GET", "POST"})
-// */
+//     * Displays a form to edit an existing egsBrand entity.
+//     * @Route("/{id}/edit", name="admin_egsbrand_edit")
+//     * @Method({"GET", "POST"})
+//     */
 //    public function editAction(Request $request, EgsBrand $egsBrand)
 //    {
 //        $deleteForm = $this->createDeleteForm($egsBrand);

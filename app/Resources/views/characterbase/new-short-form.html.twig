@@ -1,0 +1,32 @@
+<tr>
+    <td align="center">
+        <input type="hidden" name="game_id" value="{{ game.id }}">
+        <input type="number" name="introduction_priority" value="" style="height: 36px; width: 60px;">
+        <select name="" id="">
+            <option value="">aaa</option>
+            <option value="">aaa</option>
+            <option value="">aaa</option>
+        </select>
+    </td>
+    <td align="center">
+        <input type="text" name="name" value="" placeholder="名" style="height: 36px;">
+        <br>
+        <input type="text" name="name_kana" value="" placeholder="名(カナ)" style="height: 36px;">
+    </td>
+    <td align="center">
+        <input type="text" name="middle_name" value="" placeholder="ミドルネーム" style="height: 36px;">
+        <br>
+        <input type="text" name="middle_name_kana" value="" placeholder="ミドルネーム(カナ)" style="height: 36px;">
+    </td>
+    <td align="center">
+        <input type="text" name="family_name" value="" placeholder="姓" style="height: 36px;">
+        <br>
+        <input type="text" name="family_name_kana" value="" placeholder="姓(カナ)" style="height: 36px;">
+    </td>
+    <td align="center">
+        <button class="btn btn-default" style="height: 36px; width: 42px" data-trigger="create-character-base-short" data-action-url="{{ path('admin_character_base_create_short') }}" data-csrf-token="{{ csrf_token('appbundle_characterbase') }}"><i class="fa fa-cloud-upload" aria-hidden="true" style="width: 12px; height: 12px;"></i></button>
+    </td>
+    <td align="center">
+        <button class="btn btn-default" style="height: 36px; width: 42px" data-trigger="delete-new-character-base-short-form" data-action-url="{{ path('admin_character_base_get_short_form', { 'id': game.id }) }}"><i class="fa fa-minus" aria-hidden="true" style="width: 12px; height: 12px;"></i></button>
+    </td>
+</tr>
