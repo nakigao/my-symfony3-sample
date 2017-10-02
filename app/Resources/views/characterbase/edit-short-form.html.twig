@@ -1,14 +1,12 @@
 <tr>
     <td align="center">
         <input type="hidden" name="game_id" value="{{ characterBase.gameId }}">
-        <input type="number" name="introduction_priority" value="{{ characterBase.introductionPriority }}" style="height: 36px; width: 96px;">
+        <input type="number" name="introduction_priority" value="{{ characterBase.introductionPriority }}" style="height: 36px; width: 64px;">
         <br>
-        <select name="" id="" style="width: 96px;">
-            <option value="1">不明</option>
-            <option value="2">男性</option>
-            <option value="3">女性</option>
-            <option value="3">中性</option>
-            <option value="3">その他</option>
+        <select name="gender" style="width: 64px; {% if characterBase.gender == 2 %}border-color: rgba(33, 150, 243, 1);{% endif %}{% if characterBase.gender == 3 %}border-color: rgba(244, 67, 54, 1);{% endif %}">
+            {% for option in gender %}
+                <option value="{{ option.value }}" {% if characterBase.gender == option.value %}selected{% endif %}>{{ option.htmlText }}</option>
+            {% endfor %}
         </select>
     </td>
     <td align="center">

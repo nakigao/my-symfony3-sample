@@ -63,7 +63,6 @@ class CharacterBaseRepository extends BaseRepository
         $em = $this->getEntityManager();
         // 表示優先順番のデフォルト設定
         $introductionPriority = $entity->getIntroductionPriority();
-        $currentIntroductionPriority = $this->getCurrentIntroductionPriority($entity->getId());
         $maxIntroductionPriority = $this->getMaxIntroductionPriority($entity->getGameId());
         if (empty($introductionPriority)) {
             // 指定されていない場合 = 最大値+1

@@ -149,7 +149,9 @@ class CharacterBaseController extends Controller
         if (empty($game)) {
             return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::NO_ENTRY)), 500);
         }
+        $gender = $em->getRepository('AppBundle:Gender')->getList();
         $renderView = $this->renderView('characterbase/new-short-form.html.twig', array(
+            'gender' => $gender,
             'game' => $game
         ));
         return new Response($renderView, 200);
@@ -178,7 +180,9 @@ class CharacterBaseController extends Controller
             if (empty($newCharacterBase)) {
                 return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::CANNOT_CREATE_ENTRY)), 500);
             }
+            $gender = $em->getRepository('AppBundle:Gender')->getList();
             $renderView = $this->renderView('characterbase/edit-short-form.html.twig', array(
+                'gender' => $gender,
                 'characterBase' => $newCharacterBase
             ));
             return new Response($renderView, 200);
@@ -211,27 +215,13 @@ class CharacterBaseController extends Controller
             if (empty($newCharacterBase)) {
                 return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::CANNOT_CREATE_ENTRY)), 500);
             }
+            $gender = $em->getRepository('AppBundle:Gender')->getList();
             $renderView = $this->renderView('characterbase/edit-short-form.html.twig', array(
+                'gender' => $gender,
                 'characterBase' => $newCharacterBase
             ));
             return new Response($renderView, 200);
         } else {
-
-
-            $errors = array();
-            foreach ($form->getErrors() as $key => $error) {
-                if ($form->isRoot()) {
-                    $errors['#'][] = $error->getMessage();
-                } else {
-                    $errors[] = $error->getMessage();
-                }
-            }
-
-            echo("<pre style='background-color: #ffd3a8;'>");
-            var_export($errors);
-            echo("</pre>");
-
-
             // TODO: validation check and error handling
             return new Response($this->renderView('error.html.twig', ErrorCode::gets(ErrorCode::DIRTY_REQUEST)), 500);
         }

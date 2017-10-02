@@ -27,7 +27,7 @@
                     {% for entry in games %}
                         <tr>
                             <td>
-                                <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="open-information-modal" data-action-url="{{ path('admin_game_show', { 'id': entry.id }) }}"><i class="fa fa-info-circle" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-default" role="button" data-trigger="open-information-modal" data-action-url="{{ path('admin_game_show', { 'id': entry.id }) }}" data-dialog-class-name="game-information-modal"><i class="fa fa-info-circle" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                                 {% if entry.isDone is defined %}
                                     <a href="javascript:void(0);" target="_blank" class="btn {% if entry.isDone %}btn-success{% else %}btn-default{% endif %}" role="button" data-trigger="toggle-game-is-done" data-action-url="{{ path('admin_game_toggle_game_is_done', { 'id': entry.id }) }}"><i class="fa fa-check" aria-hidden="true" style="width: 12px; height: 12px;"></i></a>
                                 {% else %}

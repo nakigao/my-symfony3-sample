@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS `gender` (
 );
 
 INSERT INTO gender (value, html_text) VALUES
-    (1, '不明'),
-    (2, '男性'),
-    (3, '女性'),
-    (4, '中性'),
-    (5, 'その他');
+#     (1, '不明'),
+    (2, '♂'),
+    (3, '♀'),
+#     (4, '中性'),
+    (5, '他');

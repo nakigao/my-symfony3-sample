@@ -9,8 +9,10 @@ $(function() {
     });
 
     $('[data-trigger="open-information-modal"]').on('click', function(e) {
+        var className = $(this).data('dialog-class-name');
         var actionUrl = $(this).data('action-url');
         var dialog = bootbox.dialog({
+            className: className,
             size: 'large',
             message: bootBoxDialogLoadingBody,
             onEscape: function() {
@@ -50,6 +52,11 @@ $(function() {
         });
     });
 
+    $(document).on('change', '.game-information-modal input, .game-information-modal select', function() {
+        $(this).closest('tr').find('[data-trigger="create-character-base-short"]').addClass('btn-warning');
+        $(this).closest('tr').find('[data-trigger="update-character-base-short"]').addClass('btn-warning');
+    });
+
     $(document).on('click', '[data-trigger="get-new-character-base-short-form"]', function(e) {
         var $target = $(this).parents('table').find('tbody');
         var actionUrl = $(this).data('action-url');
@@ -62,6 +69,8 @@ $(function() {
             success: function(data, textStatus, jqXHR) {},
             error: function(jqXHR, textStatus, errorThrown) {},
             complete: function(jqXHR, textStatus) {
+                $target.append(jqXHR.responseText);
+                $target.append(jqXHR.responseText);
                 $target.append(jqXHR.responseText);
             }
         });
@@ -250,6 +259,7 @@ function generateCharacterBaseShortForm($this, actionUrl, method, csrfToken) {
         $('<input />', {name: 'appbundle_characterbase[_token]', value: csrfToken}),
         $('<input />', {name: 'appbundle_characterbase[gameId]', value: $form1.find('input[name="game_id"]').val()}),
         $('<input />', {name: 'appbundle_characterbase[introductionPriority]', value: $form1.find('input[name="introduction_priority"]').val()}),
+        $('<input />', {name: 'appbundle_characterbase[gender]', value: $form1.find('[name="gender"]').val()}),
         $('<input />', {name: 'appbundle_characterbase[name]', value: $form1.find('input[name="name"]').val()}),
         $('<input />', {name: 'appbundle_characterbase[middleName]', value: $form1.find('input[name="middle_name"]').val()}),
         $('<input />', {name: 'appbundle_characterbase[familyName]', value: $form1.find('input[name="family_name"]').val()}),

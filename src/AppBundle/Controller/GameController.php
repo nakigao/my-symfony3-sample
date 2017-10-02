@@ -73,7 +73,9 @@ class GameController extends Controller
         }
         $characterBases = $em->getRepository('AppBundle:CharacterBase')->findBy(array('gameId' => $id), array('introductionPriority' => 'ASC'));
         $characterBases = $em->getRepository('AppBundle:CharacterBase')->convertEntitiesToAssoc($characterBases);
+        $gender = $em->getRepository('AppBundle:Gender')->getList();
         $renderView = $this->renderView('game/show.html.twig', array(
+            'gender' => $gender,
             'game' => $game,
             'characterBases' => $characterBases
         ));
