@@ -137,4 +137,77 @@ EOM;
         return $records[0]['introductionPriority'];
     }
 
+    /**
+     * @return array
+     */
+    public function getFirstNames()
+    {
+        $em = $this->getEntityManager();
+        $dql = <<<EOM
+SELECT
+    o.name      AS name,
+    o.nameKana AS nameKana,
+    o.gender    AS gender,
+    COUNT(o)  AS duplicateCount
+FROM {$this->_entityName} o 
+WHERE o.name IS NOT NULL
+GROUP BY o.name, o.nameKana, o.gender
+ORDER BY o.nameKana ASC
+EOM;
+        $query = $em->createQuery($dql);
+        $records = $query->getArrayResult();
+        if (empty($records)) {
+            return array();
+        }
+        return $records;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMiddleNames()
+    {
+        $em = $this->getEntityManager();
+        $dql = <<<EOM
+SELECT
+    o.middleName      AS name,
+    o.middleNameKana AS nameKana,
+    COUNT(o)  AS duplicateCount
+FROM {$this->_entityName} o 
+WHERE o.middleName IS NOT NULL
+GROUP BY o.middleName, o.middleNameKana
+ORDER BY o.middleNameKana ASC
+EOM;
+        $query = $em->createQuery($dql);
+        $records = $query->getArrayResult();
+        if (empty($records)) {
+            return array();
+        }
+        return $records;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFamilyNames()
+    {
+        $em = $this->getEntityManager();
+        $dql = <<<EOM
+SELECT
+    o.familyName      AS name,
+    o.familyNameKana AS nameKana,
+    COUNT(o)  AS duplicateCount
+FROM {$this->_entityName} o 
+WHERE o.familyName IS NOT NULL
+GROUP BY o.familyName, o.familyNameKana
+ORDER BY o.familyNameKana ASC
+EOM;
+        $query = $em->createQuery($dql);
+        $records = $query->getArrayResult();
+        if (empty($records)) {
+            return array();
+        }
+        return $records;
+    }
+
 }

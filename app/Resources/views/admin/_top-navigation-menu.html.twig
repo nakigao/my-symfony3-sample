@@ -18,6 +18,9 @@
                 {#<li {% if requestUri matches '(/shnb)' %}class="active"{% endif %}><a href="{{ base_url }}/shnb" data-toggle="tooltip" data-placement="bottom" data-original-title="シノビガミランダムジェネレーター(β)">SHNB</a></li>#}
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                {#<li><a href="javascript:void(0);"><i class="fa fa-bar-chart" aria-hidden="true" style="color: #FF6666;"></i></a></li>#}
+                <li><a href="{{ path('admin_database_management') }}"><i class="fa fa-database" aria-hidden="true" style="color: #FF6666;"></i></a></li>
+                <li><a href="javascript:void(0);">|</a></li>
                 <li><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user" aria-hidden="true" style="color: #FF6666;"></i></a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out" aria-hidden="true" style="color: #FF6666;"></i></a></li>
             </ul>

@@ -83,27 +83,6 @@ class GameController extends Controller
     }
 
     /**
-     * EgsGameからのマスターデータを新規挿入または更新する(最新の更新を反映する)
-     * @Route("/upsert_from_egs_game/", name="admin_game_upsert_from_egs_game")
-     * @Method("GET")
-     */
-    public function upsertFromEgsGameAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $gameRepository = $em->getRepository('AppBundle:Game');
-        $egsGameRepository = $em->getRepository('AppBundle:EgsGame');
-        $egsGameTotalCount = $egsGameRepository->getTotalCount();
-        $batchLimit = 200;
-        for ($i = 0; $i < $egsGameTotalCount; $i += $batchLimit) {
-            // 200件ずつ
-            $egsGames = $egsGameRepository->findBy(array(), null, $batchLimit, $i);
-            $egsGames = json_decode($this->container->get('serializer')->serialize($egsGames, 'json'), true);
-            $gameRepository->upsertFromEgsGame($egsGames);
-        }
-        return new JsonResponse(SuccessCode::get(), 200);
-    }
-
-    /**
      * 作業完了/作業未完了をトグル
      * @Route("/toggle_game_is_done/{id}", name="admin_game_toggle_game_is_done")
      * @Method("PUT")

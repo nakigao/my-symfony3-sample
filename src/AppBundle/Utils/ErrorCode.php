@@ -8,6 +8,7 @@ namespace AppBundle\Utils;
  */
 class ErrorCode
 {
+    const UNDER_CONSTRUCTION = 'under_construction';
     const NO_ENTRY = 'no_entry';
     const UNKNOWN = 'unknown';
     const INVALID_ACCESS = 'invalid access';
@@ -60,6 +61,10 @@ class ErrorCode
             case self::CANNOT_CREATE_ENTRY:
                 $error['code'] = self::CANNOT_CREATE_ENTRY;
                 $error['message'] = 'can not create entry';
+                break;
+            case self::UNDER_CONSTRUCTION:
+                $error['code'] = self::UNDER_CONSTRUCTION;
+                $error['message'] = 'under construction';
                 break;
             default:
                 $error['code'] = self::UNKNOWN;

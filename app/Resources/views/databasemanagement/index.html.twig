@@ -1,0 +1,36 @@
+{% extends 'admin/layout.html.twig' %}
+{% block content %}
+    <section>
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="page-header">Database Management</h1>
+                <p>WEBからバッチ叩くイメージ</p>
+            </div>
+        </div>
+    </section>
+    <section class="">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-borderless">
+                    <tr>
+                        <td class="col-sm-2" style="text-align: center">
+                            <a href="javascript:void(0);" class="btn btn-default" style="width: 100%;" role="button" data-trigger="upsert-from-egs-game" data-action-url="{{ path('admin_database_management_upsert_from_egs_game') }}">MERGE</a>
+                        </td>
+                        <td>EgsGameからGameへデータのUpsert</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-2" style="text-align: center"><a href="javascript:void(0);" class="btn btn-default" style="width: 100%;" role="button" data-trigger="generate-search-master" data-action-url="{{ path('admin_database_management_generate_search_master') }}">GEN SEARCH</a></td>
+                        <td>検索データテーブル生成</td>
+                    </tr>
+                    {#<tr>#}
+                        {#<td class="col-sm-2" style="text-align: center"><a href="javascript:void(0);" class="btn btn-default" style="width: 100%;" role="button" data-trigger="generate-statistic-master" data-action-url="{{ path('admin_database_management_generate_statistic_master') }}">GEN STATISTIC</a></td>#}
+                        {#<td>統計データテーブル生成</td>#}
+                    {#</tr>#}
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts_for_action %}
+    <script src="{{ asset('assets/js/admin-databasemanagement.js') }}"></script>
+{% endblock %}
