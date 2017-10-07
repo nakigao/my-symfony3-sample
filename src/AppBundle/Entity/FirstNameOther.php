@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * FirstName
+ * FirstNameOther
  *
- * @ORM\Table(name="first_name")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\FirstNameRepository")
+ * @ORM\Table(name="first_name_other")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FirstNameOtherRepository")
  */
-class FirstName
+class FirstNameOther
 {
     /**
      * @var integer
@@ -38,13 +38,6 @@ class FirstName
     /**
      * @var integer
      *
-     * @ORM\Column(name="gender", type="integer", nullable=true)
-     */
-    private $gender;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="duplicate_count", type="integer", nullable=true)
      */
     private $duplicateCount;
@@ -66,7 +59,7 @@ class FirstName
      *
      * @param string $name
      *
-     * @return FirstName
+     * @return FirstNameOther
      */
     public function setName($name)
     {
@@ -90,7 +83,7 @@ class FirstName
      *
      * @param string $nameKana
      *
-     * @return FirstName
+     * @return FirstNameOther
      */
     public function setNameKana($nameKana)
     {
@@ -110,35 +103,11 @@ class FirstName
     }
 
     /**
-     * Set gender
-     *
-     * @param integer $gender
-     *
-     * @return FirstName
-     */
-    public function setGender($gender)
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
-
-    /**
-     * Get gender
-     *
-     * @return integer
-     */
-    public function getGender()
-    {
-        return $this->gender;
-    }
-
-    /**
      * Set duplicateCount
      *
      * @param integer $duplicateCount
      *
-     * @return FirstName
+     * @return FirstNameOther
      */
     public function setDuplicateCount($duplicateCount)
     {

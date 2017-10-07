@@ -52,11 +52,28 @@ class BaseRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * @return array|mixed
+     */
+    public function choiceAtRandom()
+    {
+        $numberOfRows = $this->countNumberOfRows();
+        $randomId = mt_rand(1, $numberOfRows);
+        $entity = $this->findOneBy(array(
+            'id' => $randomId
+        ));
+        if (empty($entity)) {
+            return array();
+        }
+        $entity = $this->convertEntityToAssoc($entity, 'id');
+        return $entity[$randomId];
+    }
+
+    /**
      * レコードの総数を取得する
      *
      * @return int|mixed
      */
-    public function getTotalCount()
+    public function countNumberOfRows()
     {
         $query = $this->getEntityManager()->createQueryBuilder()
             ->select('COUNT(o.id)')

@@ -35,7 +35,7 @@ class DatabaseManagementController extends Controller
         $em = $this->getDoctrine()->getManager();
         $gameRepository = $em->getRepository('AppBundle:Game');
         $egsGameRepository = $em->getRepository('AppBundle:EgsGame');
-        $egsGameTotalCount = $egsGameRepository->getTotalCount();
+        $egsGameTotalCount = $egsGameRepository->countNumberOfRows();
         $batchLimit = 200;
         for ($i = 0; $i < $egsGameTotalCount; $i += $batchLimit) {
             // 200件ずつ
@@ -55,7 +55,9 @@ class DatabaseManagementController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         // ファーストネーム
-        $em->getRepository('AppBundle:FirstName')->refresh();
+        $em->getRepository('AppBundle:FirstNameMale')->refresh();
+        $em->getRepository('AppBundle:FirstNameFemale')->refresh();
+        $em->getRepository('AppBundle:FirstNameOther')->refresh();
         // ミドルネーム
         $em->getRepository('AppBundle:MiddleName')->refresh();
         // ラストネーム

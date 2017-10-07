@@ -71,6 +71,8 @@ $(function() {
                 $target.append(jqXHR.responseText);
                 $target.append(jqXHR.responseText);
                 $target.append(jqXHR.responseText);
+                $target.append(jqXHR.responseText);
+                $target.append(jqXHR.responseText);
             }
         });
     });

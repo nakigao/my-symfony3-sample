@@ -138,23 +138,25 @@ EOM;
     }
 
     /**
+     * @param array $criteria
+     *
      * @return array
      */
-    public function getFirstNames()
+    public function getFirstNames($criteria = array())
     {
         $em = $this->getEntityManager();
         $dql = <<<EOM
 SELECT
     o.name      AS name,
     o.nameKana AS nameKana,
-    o.gender    AS gender,
     COUNT(o)  AS duplicateCount
 FROM {$this->_entityName} o 
 WHERE o.name IS NOT NULL
-GROUP BY o.name, o.nameKana, o.gender
+    AND o.gender = :gender
+GROUP BY o.name, o.nameKana
 ORDER BY o.nameKana ASC
 EOM;
-        $query = $em->createQuery($dql);
+        $query = $em->createQuery($dql)->setParameters($criteria);
         $records = $query->getArrayResult();
         if (empty($records)) {
             return array();
@@ -208,6 +210,26 @@ EOM;
             return array();
         }
         return $records;
+    }
+
+    public function countNumberOfRowsGroupByGameId()
+    {
+        // FIXME: リアルタイムである必要がないから、Batchで統計テーブル作りたい
+        $em = $this->getEntityManager();
+        $dql = <<<EOM
+SELECT
+    o.gameId  AS gameId,
+    COUNT(o)  AS characterCount
+FROM {$this->_entityName} o 
+GROUP BY o.gameId
+ORDER BY o.gameId ASC
+EOM;
+        $query = $em->createQuery($dql);
+        $records = $query->getArrayResult();
+        if (empty($records)) {
+            return array();
+        }
+        return $this->convertAssocToIndexedAssoc($records, 'gameId');
     }
 
 }

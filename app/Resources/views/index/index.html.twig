@@ -1,4 +1,98 @@
 {% extends 'index/layout.html.twig' %}
 {% block content %}
-    <p>index contents</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p>現在のヒーロー名パターン数({{ heroPoolNumberOfPattern }})</p>
+                <p>現在のヒロイン名パターン数({{ heroinePoolNumberOfPattern }})</p>
+                {% for entry in heroPool %}
+                    <div style="border: 1px solid #CCCCCC; padding: 16px; margin-bottom: 8px; color: rgba(33, 150, 243, 1);">
+                        <p>
+                            {% if entry.isJpName %}
+                                {# 和名 #}
+                                <ruby>
+                                    <rb>{{ entry.familyName.name }}</rb>
+                                    <rp>(</rp>
+                                    <rt>{{ entry.familyName.nameKana }}</rt>
+                                    <rp>)</rp>
+                                </ruby>
+                                <ruby>
+                                    <rb>{{ entry.firstName.name }}</rb>
+                                    <rp>(</rp>
+                                    <rt>{{ entry.firstName.nameKana }}</rt>
+                                    <rp>)</rp>
+                                </ruby>
+                            {% else %}
+                                {# 和名以外 #}
+                                <ruby>
+                                    <rb>{{ entry.firstName.nameKana }}</rb>
+                                    <rp>(</rp>
+                                    <rt>-</rt>
+                                    <rp>)</rp>
+                                </ruby>
+                                <ruby>
+                                    <rb>=</rb>
+                                    <rp>(</rp>
+                                    <rt></rt>
+                                    <rp>)</rp>
+                                </ruby>
+                                <ruby>
+                                    <rb>{{ entry.familyName.nameKana }}</rb>
+                                    <rp>(</rp>
+                                    <rt>-</rt>
+                                    <rp>)</rp>
+                                </ruby>
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+                {% for entry in heroinePool %}
+                    <div style="border: 1px solid #CCCCCC; padding: 16px; margin-bottom: 8px; color: rgba(244, 67, 54, 1);">
+                        <p>
+                            {% if entry.isJpName %}
+                                {# 和名 #}
+                                <ruby>
+                                    <rb>{{ entry.familyName.name }}</rb>
+                                    <rp>(</rp>
+                                    <rt>{{ entry.familyName.nameKana }}</rt>
+                                    <rp>)</rp>
+                                </ruby>
+                                <ruby>
+                                    <rb>{{ entry.firstName.name }}</rb>
+                                    <rp>(</rp>
+                                    <rt>{{ entry.firstName.nameKana }}</rt>
+                                    <rp>)</rp>
+                                </ruby>
+                            {% else %}
+                                {# 和名以外 #}
+                                <ruby>
+                                    <rb>{{ entry.firstName.nameKana }}</rb>
+                                    <rp>(</rp>
+                                    <rt>-</rt>
+                                    <rp>)</rp>
+                                </ruby>
+                                <ruby>
+                                    <rb>=</rb>
+                                    <rp>(</rp>
+                                    <rt></rt>
+                                    <rp>)</rp>
+                                </ruby>
+                                <ruby>
+                                    <rb>{{ entry.familyName.nameKana }}</rb>
+                                    <rp>(</rp>
+                                    <rt>-</rt>
+                                    <rp>)</rp>
+                                </ruby>
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>Copyright (C) 2017 - {{ "now"|date("Y") }} {{ site_author }}. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

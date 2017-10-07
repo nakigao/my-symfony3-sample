@@ -66,6 +66,7 @@ class GameRepository extends BaseRepository
     public function getList($page = 1, $limit = 0, $sortAndOrders = array(), $filters = array())
     {
         $em = $this->getEntityManager();
+        // EgsGame
         $egsGameRepository = $em->getRepository('AppBundle:EgsGame');
         $egsGames = $egsGameRepository->getList($page, $limit, $sortAndOrders, $filters);
         if (empty($egsGames)) {
@@ -95,7 +96,22 @@ class GameRepository extends BaseRepository
             }
         }
         $games = $this->findBy($criteria);
-        $games = $this->convertEntitiesToAssoc($games, 'egsGameId');
+        // キャラクターカウントを差し込む
+        // FIXME: 無駄多い
+        $games = $this->convertEntitiesToAssoc($games, 'id');
+        $characterBaseRepository = $em->getRepository('AppBundle:CharacterBase');
+        $numberOfRowsGroupByGameIdCounts = $characterBaseRepository->countNumberOfRowsGroupByGameId();
+        $temp = array();
+        foreach ($games as $game) {
+            if (empty($numberOfRowsGroupByGameIdCounts[$game['id']]['characterCount'])) {
+                $game['characterCount'] = 0;
+            } else {
+                $game['characterCount'] = $numberOfRowsGroupByGameIdCounts[$game['id']]['characterCount'];
+            }
+            $temp[] = $game;
+        }
+        $games = $temp;
+        $games = $this->convertAssocToIndexedAssoc($games, 'egsGameId');
         // EgsGame + Game
         $list = array();
         foreach ($egsGames as $egsGame) {
